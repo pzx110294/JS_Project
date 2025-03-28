@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Html file</title>
+        <link href="css/style.css" rel="stylesheet">
+        <script type=module src="/js/app.js"></script>
+    </head>
+    <body>
+        <h1>Resources</h1>
+        <script>
+           const url = 'http://localhost:3000/' 
+           async function get() {
+               const res = await fetch(url + 'api/resource')
+               const data = await res.json();
+               data.forEach((d) => {
+                   let object = document.createElement('p');
+                   object.innerText = d.Name + ": " + d.Description;
+                   document.body.append(object);
+               })
+          
+           }
+           get();
+        </script>
+    </body>
+</html>
