@@ -10,6 +10,6 @@ router.get('/resource', (req, res) => {
     res.sendFile(viewsPath + 'resource.html');
 })
 router.get('*', (req, res) => {
-    res.sendFile(viewsPath + '404.html');
+   res.status(404).sendFile(viewsPath + '404.html');
 })
 module.exports = router;
