@@ -10,14 +10,7 @@ app.use(express.json());
 app.use(express.urlencoded( {
         extended: true
 }))
-
-app.use((req, res, next) => {
-        console.log("[ " + new Date().toUTCString() + " ] " +
-            " [ \x1b[32m " +  req.method + " \x1b[0m ] " +
-            " [ \x1b[34m" + req.url + " \x1b[0m ] " +
-            " [ " + JSON.stringify(req.body) + " ] ");
-        next();
-})
+app.use(logRequests);
 
 sequelize.sync({force: false})
     .then(() => {
@@ -47,4 +40,11 @@ function errorHandler (err, req, res, _next) {
         res.json({
                 error: err.message || 'Internal error'
         });
+}
+function logRequests (req, res, next)  {
+        console.log("[ " + new Date().toUTCString() + " ] " +
+            " [ \x1b[32m " +  req.method + " \x1b[0m ] " +
+            " [ \x1b[34m" + req.url + " \x1b[0m ] " +
+            " [ " + JSON.stringify(req.body) + " ] ");
+        next();
 }
