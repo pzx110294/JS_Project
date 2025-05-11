@@ -6,6 +6,14 @@ const sequelize = require('./db/dbConfig');
 
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(express.json());
+app.use(express.urlencoded( {
+        extended: true
+}))
+app.use((req, res, next) => {
+        console.log("{ " +  new Date () . toISOString () + " }  { " +  req.method + " }  { " + req.url + " } {" + JSON.stringify(req.query) + " }");
+        next();
+})
+
 sequelize.sync({force: false})
     .then(() => {
         console.log('Db synced');
