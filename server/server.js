@@ -4,11 +4,13 @@ const app = express();
 const sequelize = require('./db/dbConfig');
 
 
+app.use('/favicon.ico', express.static(path.join(__dirname, '../client/icon/favicon-16x16.png')));
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(express.json());
 app.use(express.urlencoded( {
         extended: true
 }))
+
 app.use((req, res, next) => {
         console.log("[ " + new Date().toUTCString() + " ] " +
             " [ \x1b[32m " +  req.method + " \x1b[0m ] " +
