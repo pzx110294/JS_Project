@@ -10,7 +10,10 @@ app.use(express.urlencoded( {
         extended: true
 }))
 app.use((req, res, next) => {
-        console.log("{ " +  new Date () . toISOString () + " }  { " +  req.method + " }  { " + req.url + " } {" + JSON.stringify(req.query) + " }");
+        console.log("[ " + new Date().toUTCString() + " ] " +
+            " [ \x1b[32m " +  req.method + " \x1b[0m ] " +
+            " [ \x1b[34m" + req.url + " \x1b[0m ] " +
+            " [ " + JSON.stringify(req.body) + " ] ");
         next();
 })
 
@@ -28,12 +31,12 @@ sequelize.sync({force: false})
         app.use(errorHandler);
         
         app.listen(3000, () => {
-                console.log("http://localhost:3000/")
+                console.log("\x1b[33mhttp://localhost:3000/ \x1b[0m")
             }
         );
     })
 function logErrors (err, req, res, next) {
-        console.log(err.stack);
+        console.log("\x1b[31m" + err.stack + "\x1b[0m");
         next(err);
 }
 
