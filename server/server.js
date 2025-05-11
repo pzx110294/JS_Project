@@ -16,8 +16,6 @@ app.use((req, res, next) => {
 
 sequelize.sync({force: false})
     .then(() => {
-        console.log('Db synced');
-
         const apiGetRoutes = require('./routes/api/get');
         const apiPostRoutes = require('./routes/api/post');
         const htmlRoutes = require('./routes/htmlRoutes');
@@ -26,9 +24,22 @@ sequelize.sync({force: false})
         app.use('/api', apiPostRoutes);
         app.use(htmlRoutes);
 
+        app.use(logErrors);
+        app.use(errorHandler);
+        
         app.listen(3000, () => {
                 console.log("http://localhost:3000/")
             }
         );
-
     })
+function logErrors (err, req, res, next) {
+        console.log(err.stack);
+        next(err);
+}
+
+function errorHandler (err, req, res, _next) {
+        res.status(err.status || 505);
+        res.json({
+                error: err.message || 'Internal error'
+        });
+}
