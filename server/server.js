@@ -1,8 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const sequelize = require('./db/dbConfig');
-
+const db = require('./models');
 
 app.get('/favicon.ico', (req, res) =>
     res.sendFile(path.join(__dirname, '../client/icon/favicon-16x16.png'))
@@ -14,14 +13,14 @@ app.use(express.urlencoded({
 }))
 app.use(logRequests);
 
-sequelize.sync({force: false})
+db.sequelize.sync({force: false})
     .then(() => {
-        const apiGetRoutes = require('./routes/api/get');
-        const apiPostRoutes = require('./routes/api/post');
         const htmlRoutes = require('./routes/htmlRoutes');
+        const apiBookRoutes = require('./routes/api/bookRoutes');
+        const apiAuthorRoutes = require('./routes/api/authorRoutes');
 
-        app.use('/api', apiGetRoutes);
-        app.use('/api', apiPostRoutes);
+        app.use('/api', apiBookRoutes);
+        app.use('/api', apiAuthorRoutes);
         app.use(htmlRoutes);
 
         app.use(logErrors);
@@ -37,7 +36,7 @@ sequelize.sync({force: false})
 });
 
 function logErrors(err, req, res, next) {
-    console.log("\x1b[31m" + err.stack + "\x1b[0m");
+    console.log(`\x1b[31m${err.status} ${err.message}\n${err.stack} \x1b[0m`);
     next(err);
 }
 
