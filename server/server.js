@@ -18,9 +18,11 @@ db.sequelize.sync({force: false})
         const htmlRoutes = require('./routes/htmlRoutes');
         const apiBookRoutes = require('./routes/api/bookRoutes');
         const apiAuthorRoutes = require('./routes/api/authorRoutes');
-
+        const apiGenreRoutes = require('./routes/api/genreRoutes');
+        
         app.use('/api', apiBookRoutes);
         app.use('/api', apiAuthorRoutes);
+        app.use('/api', apiGenreRoutes);
         app.use(htmlRoutes);
 
         app.use(logErrors);
