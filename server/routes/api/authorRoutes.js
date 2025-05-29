@@ -1,7 +1,7 @@
 ﻿const express = require('express');
 const router = express.Router();
 
-const getAuthors = require("../../services/authors/get");
+const { getAuthors } = require("../../services/authors/get");
 const { createAuthor } = require("../../services/authors/post");
 
 router.get('/authors', async (req, res, next) => {

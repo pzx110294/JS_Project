@@ -1,32 +1,21 @@
 ﻿const db = require('../../models');
-const { Book, Author } = db;
+const { Book, Author, Genre } = db;
+const { validateFields } = require('../../helpers/validateFields');
 async function createBook(book) {
-    console.log(typeof Book.prototype.setAuthors);
-    if (!book.hasOwnProperty('AuthorId')) {
-        const error = new Error("Empty Author field");
-        error.status = 422;
-        throw error;
-    }
- 
-    const t = await Book.sequelize.transaction();
-    try {
-        const newBook = await Book.create({
-            Title: book.Title,
-            ISBN: book.ISBN,
-            PublicationDate: book.PublicationDate
-        }, { transaction: t });
+    validateFields(book, ['Title', 'ISBN', 'AuthorId', 'GenreId'], 'Book');
 
-        await newBook.setAuthors(book.AuthorId, { transaction: t });
+    const newBook = await Book.create({
+        Title: book.Title,
+        ISBN: book.ISBN,
+        PublicationDate: book.PublicationDate
+    });
+    await newBook.setAuthors(book.AuthorId);
+    await newBook.setGenres(book.GenreId);
 
-        await t.commit();
-        const result = await Book.findByPk(newBook.id, {
-            include: [Author]
-        });
-        return result;
-    } catch (err) {
-        await t.rollback();
-        throw err;
-    }
+    const result = await Book.findByPk(newBook.id, {
+        include: [Author, Genre]
+    });
+    return result;
 }
 
 

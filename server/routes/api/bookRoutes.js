@@ -18,10 +18,6 @@ router.get('/books/:id', async (req, res, next) => {
         const result = await getBookById(req.params.id);
         if (result) {
             res.json(result);
-        } else {
-            const error = new Error("Book not found");
-            error.status = 404;
-            next(error);
         }
     }
     catch (error) {
