@@ -4,13 +4,13 @@ const router = express.Router();
 const { getBooks, getBookById }= require("../../services/books/get");
 const {createBook} = require("../../services/books/post");
 
-function prepareFilters(req) {
+function prepareFilters(query) {
     return {
-        Title: req.Title,
-        ISBN: req.ISBN,
-        PublicationDate: req.PublicationDate,
-        AuthorId: req.AuthorId,
-        GenreId: req.GenreId,
+        Title: query.Title,
+        ISBN: query.ISBN,
+        PublicationDate: query.PublicationDate,
+        AuthorId: query.AuthorId,
+        GenreId: query.GenreId,
     }
 }
 router.get('/books', async (req, res, next) => {

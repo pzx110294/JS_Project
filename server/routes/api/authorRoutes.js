@@ -6,7 +6,10 @@ const { createAuthor } = require("../../services/authors/post");
 
 router.get('/authors', async (req, res, next) => {
     try {
-        const result = await getAuthors();
+        let filters = {
+            Name: req.query.Name
+        }
+        const result = await getAuthors(filters);
         res.json(result);
     }
     catch (error) {
