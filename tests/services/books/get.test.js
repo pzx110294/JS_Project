@@ -11,7 +11,7 @@ beforeEach(async () => {
 test('returns books with authors and genres', async () => {
     const result = await getBooks();
     
-    expect(result.length).toBe(7);
+    expect(result.length).toBe(books.length);
     
     expect(result[0].Name).toBe(books[0].Name);
     expect(result[1].Name).toBe(books[1].Name);

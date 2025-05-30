@@ -6,7 +6,10 @@ const { createGenre } = require("../../services/genres/post");
 
 router.get('/genres', async (req, res, next) => {
     try {
-        const result = await getGenres();
+        let filters = {
+            Name: req.query.Name
+        }
+        const result = await getGenres(filters);
         res.json(result);
     }
     catch (error) {
