@@ -3,12 +3,12 @@ const {validateFields} = require("../../helpers/validateFields");
 const {Book, Genre } = db;
 
 async function getGenres() {
-    const data = await Genre.findAll({include: [Book]})
+    const data = await Genre.findAll({include: Book})
     return data;
 }
 
 async function getGenreById(id) {
-    const data = await Genre.findByPk(id);
+    const data = await Genre.findByPk(id, {include: Book});
     validateFields(data, ['Name'], 'Genre');
     return data;
 }
