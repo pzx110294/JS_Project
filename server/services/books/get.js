@@ -1,7 +1,7 @@
 ﻿const db = require('../../models');
 const {Book, Author, Genre } = db;
 const { validateFields } = require('../../helpers/validateFields');
-const {where, Op} = require("sequelize");
+const {Op} = require("sequelize");
 async function getBooks(filters = {}) {
     let where = {};
     const include = [

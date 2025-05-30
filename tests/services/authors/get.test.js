@@ -2,7 +2,6 @@
 const db = require('../../../server/models')
 const { getAuthors, getAuthorById} = require('../../../server/services/authors/get');
 const { createTestData } = require('../../helpers/testData');
-const {getGenres} = require("../../../server/services/genres/get");
 
 let authors;
 
