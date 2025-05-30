@@ -11,7 +11,7 @@ beforeEach(async () => {
 test('returns books with authors and genres', async () => {
     const result = await getBooks();
     
-    expect(result.length).toBe(2);
+    expect(result.length).toBe(7);
     
     expect(result[0].Name).toBe(books[0].Name);
     expect(result[1].Name).toBe(books[1].Name);
@@ -43,3 +43,42 @@ test('returns book with specific id', async () => {
 test('returns book with invalid id', async () => {
     await expect(getBookById(999)).rejects.toThrow();
 })
+
+test('filters books by partial Title match', async () => {
+    const result = await getBooks({ Title: 'Harry' });
+    expect(result.length).toBe(1);
+    expect(result[0].Title).toMatch(/Harry Potter/i);
+});
+
+test('filters books by exact ISBN', async () => {
+    const result = await getBooks({ ISBN: '2222-2222' });
+    expect(result.length).toBe(1);
+    expect(result[0].Title).toBe('1984');
+});
+
+test('filters books by partial ISBN', async () => {
+    const result = await getBooks({ ISBN: '2222' });
+    expect(result.length).toBe(1);
+    expect(result[0].Title).toBe('1984');
+});
+
+test('filters books by exact publication date', async () => {
+    const result = await getBooks({ PublicationDate: '1949-06-08' });
+    expect(result.length).toBe(1);
+    expect(result[0].Title).toBe('1984');
+});
+
+test('filters books by author ID', async () => {
+    const result = await getBooks({ AuthorId: authors[6].id }); // Isaac Asimov
+    expect(result.length).toBe(1);
+    expect(result[0].Title).toBe('Foundation');
+});
+
+test('returns books matching multiple filters (Title + AuthorId)', async () => {
+    const result = await getBooks({
+        Title: 'Foundation',
+        AuthorId: authors[6].id
+    });
+    expect(result.length).toBe(1);
+    expect(result[0].Title).toBe('Foundation');
+});

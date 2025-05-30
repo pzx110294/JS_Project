@@ -12,7 +12,7 @@ beforeEach(async () => {
 test('returns genres', async () => {
     const result = await getGenres();
     expect(result).toBeDefined();
-    expect(result.length).toBe(2);
+    expect(result.length).toBe(7);
     expect(result[0].Name).toBe(genres[0].Name);
     expect(result[1].Name).toBe(genres[1].Name);
 });

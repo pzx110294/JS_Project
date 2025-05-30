@@ -13,11 +13,12 @@ test('creates a valid book with multiple authors and genres', async () => {
 	const title = 'Test Book';
 	const isbn = '1234-5678';
 	const date = new Date();
+	const dateOnly = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
 	
 	const book = {
 		Title: title,
 		ISBN: isbn,
-		PublicationDate: date,
+		PublicationDate: dateOnly,
 		AuthorId: [ authors[0].id, authors[1].id ],
 		GenreId: [genres[0].id, genres[1].id]
 	};
@@ -26,7 +27,7 @@ test('creates a valid book with multiple authors and genres', async () => {
 	expect(result).toBeDefined();
 	expect(Title).toBe(title);
 	expect(ISBN).toBe(isbn);
-	expect(new Date(PublicationDate).toISOString()).toBe(date.toISOString());
+	expect(new Date(PublicationDate).getTime()).toBe(dateOnly.getTime());
 	
 	expect(Authors.length).toBe(2);
 	expect(Authors[0].id).toBe(authors[0].id);

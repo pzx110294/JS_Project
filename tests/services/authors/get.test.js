@@ -13,7 +13,7 @@ beforeEach(async () => {
 test('returns authors', async () => {
     const result = await getAuthors();
     expect(result).toBeDefined();
-    expect(result.length).toBe(2);
+    expect(result.length).toBe(7);
     expect(result[0].Name).toBe(authors[0].Name);
     expect(result[1].Name).toBe(authors[1].Name);
 });
