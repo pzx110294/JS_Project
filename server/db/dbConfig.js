@@ -1,9 +1,14 @@
 const {Sequelize} = require('sequelize');
+const sqlite = require("node:sqlite");
 
 let sequelize;
 
 if (process.env.NODE_ENV === 'test') {
-    sequelize = new Sequelize('sqlite::memory:', { logging: false });
+    sequelize = new Sequelize({
+        dialect: 'sqlite',
+        storage: ':memory:',
+        logging: false 
+    });
 }
 else {
     sequelize = new Sequelize(
