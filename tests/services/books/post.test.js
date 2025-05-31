@@ -1,12 +1,12 @@
 const db = require('../../../server/models')
 const { createBook } = require('../../../server/services/books/post');
-const {createTestData} = require("../../helpers/testData");
+const { seedData } = require('../../../server/db/seedData');
 
 let authors, genres;
 
 beforeEach(async () => {
 	await db.sequelize.sync({ force: true });
-	[ authors, genres ] = await createTestData();
+	[ authors, genres ] = await seedData();
 });
 
 test('creates a valid book with multiple authors and genres', async () => {

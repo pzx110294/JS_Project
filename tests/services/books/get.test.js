@@ -1,16 +1,15 @@
 ﻿const db = require('../../../server/models')
 const { getBooks, getBookById} = require('../../../server/services/books/get');
-const { createTestData } = require('../../helpers/testData');
+const { seedData } = require('../../../server/db/seedData');
 let authors, genres, books;
 
 beforeEach(async () => {
     await db.sequelize.sync({ force: true });
-    [ authors, genres, books ] = await createTestData();
+    [ authors, genres, books ] = await seedData();
 });
 
 test('returns books with authors and genres', async () => {
     const result = await getBooks();
-    
     expect(result.length).toBe(books.length);
     
     expect(result[0].Name).toBe(books[0].Name);
@@ -51,15 +50,15 @@ test('filters books by partial Title match', async () => {
 });
 
 test('filters books by exact ISBN', async () => {
-    const result = await getBooks({ ISBN: '2222-2222' });
+    const result = await getBooks({ ISBN: '9788418915093' });
     expect(result.length).toBe(1);
     expect(result[0].Title).toBe('1984');
 });
 
 test('filters books by partial ISBN', async () => {
-    const result = await getBooks({ ISBN: '2222' });
-    expect(result.length).toBe(1);
-    expect(result[0].Title).toBe('1984');
+    const result = await getBooks({ ISBN: '80' });
+    expect(result.length).toBe(3);
+    expect(result[0].Title).toBe('Pride and Prejudice');
 });
 
 test('filters books by exact publication date', async () => {

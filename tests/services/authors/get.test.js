@@ -1,13 +1,13 @@
 ﻿
 const db = require('../../../server/models')
 const { getAuthors, getAuthorById} = require('../../../server/services/authors/get');
-const { createTestData } = require('../../helpers/testData');
+const { seedData } = require('../../../server/db/seedData');
 
 let authors;
 
 beforeEach(async () => {
     await db.sequelize.sync({ force: true });
-    [ authors ] = await createTestData();
+    [ authors ] = await seedData();
 });
 
 test('returns authors', async () => {

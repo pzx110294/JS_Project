@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const db = require('./models');
+const { seedData } = require('./db/seedData');
 
 app.get('/favicon.ico', (req, res) =>
     res.sendFile(path.join(__dirname, '../client/icon/favicon-16x16.png'))
@@ -14,7 +15,8 @@ app.use(express.urlencoded({
 app.use(logRequests);
 
 db.sequelize.sync({force: false})
-    .then(() => {
+    .then(async () => {
+        await seedData();
         const htmlRoutes = require('./routes/htmlRoutes');
         const apiBookRoutes = require('./routes/api/bookRoutes');
         const apiAuthorRoutes = require('./routes/api/authorRoutes');
