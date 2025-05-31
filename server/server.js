@@ -3,6 +3,8 @@ const path = require('path');
 const app = express();
 const db = require('./models');
 const { seedData } = require('./db/seedData');
+const { logRequests, logErrors } = require('./middleware/logging');
+const { errorHandler } = require('./middleware/errorHandling');
 
 app.get('/favicon.ico', (req, res) =>
     res.sendFile(path.join(__dirname, '../client/icon/favicon-16x16.png'))
@@ -17,16 +19,8 @@ app.use(logRequests);
 db.sequelize.sync({force: false})
     .then(async () => {
         await seedData();
-        const htmlRoutes = require('./routes/htmlRoutes');
-        const apiBookRoutes = require('./routes/api/bookRoutes');
-        const apiAuthorRoutes = require('./routes/api/authorRoutes');
-        const apiGenreRoutes = require('./routes/api/genreRoutes');
         
-        app.use('/api', apiBookRoutes);
-        app.use('/api', apiAuthorRoutes);
-        app.use('/api', apiGenreRoutes);
-        app.use(htmlRoutes);
-
+        require('./routes')(app);
         app.use(logErrors);
         app.use(errorHandler);
 
@@ -38,23 +32,3 @@ db.sequelize.sync({force: false})
     console.error("Sequelize failed to sync:", err);
     process.exit(1);
 });
-
-function logErrors(err, req, res, next) {
-    console.log(`\x1b[31m${err.status} ${err.message}\n${err.stack} \x1b[0m`);
-    next(err);
-}
-
-function errorHandler(err, req, res, _next) {
-    res.status(err.status || 500);
-    res.json({
-        error: err.message || 'Internal error'
-    });
-}
-
-function logRequests(req, res, next) {
-    console.log("[ " + new Date().toUTCString() + " ] " +
-        " [ \x1b[32m " + req.method + " \x1b[0m ] " +
-        " [ \x1b[34m" + req.url + " \x1b[0m ] " +
-        " [ " + JSON.stringify(req.body) + " ] ");
-    next();
-}
