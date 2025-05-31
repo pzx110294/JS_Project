@@ -1,7 +1,6 @@
 ﻿const db = require('../../../server/models');
 const { seedData } = require('../../../server/db/seedData');
 const { updateBookById } = require('../../../server/services/books/put');
-const {createBook} = require("../../../server/services/books/post");
 
 let authors, genres, books;
 
@@ -102,13 +101,13 @@ describe('updateBookById', () => {
             GenreId: ''
         })).rejects.toThrow('Empty Title field');
     });
-});
-test('throws error if PublicationDate is in incorrect format', async () => {
-    await expect(updateBookById(1,{
-        Title: 'Invalid Date Book',
-        ISBN: '1234-5678',
-        PublicationDate: 'not-a-date',
-        AuthorId: authors[0].id,
-        GenreId: [genres[0].id]
-    })).rejects.toThrow('Invalid PublicationDate format');
+    it('throws error if PublicationDate is in incorrect format', async () => {
+        await expect(updateBookById(1,{
+            Title: 'Invalid Date Book',
+            ISBN: '1234-5678',
+            PublicationDate: 'not-a-date',
+            AuthorId: authors[0].id,
+            GenreId: [genres[0].id]
+        })).rejects.toThrow('Invalid PublicationDate format');
+    });
 });
