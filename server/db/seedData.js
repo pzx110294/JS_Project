@@ -52,7 +52,8 @@ async function seedData() {
         {
             Title: 'Harry Potter and the Philosopher\'s Stone',
             ISBN: '9780439554930',
-            PublicationDate: new Date('1997-06-26')
+            PublicationDate: new Date('1997-06-26'),
+            CoverUrl: "/images/harry-potter-philosopher-stone.jpg"
         },
         {
             Title: 'Foundation',
@@ -64,7 +65,7 @@ async function seedData() {
     await books[0].setAuthors([authors[0].id, authors[1].id]); // Test Author 1, Test Author 2
     await books[0].setGenres([genres[0].id]); // Test Genre 1
 
-    await books[1].setAuthors([authors[0].id]); // Test Author 1
+    await books[1].setAuthors([authors[1].id]); // Test Author 2
     await books[1].setGenres([genres[0].id, genres[1].id]); // Test Genre 1, Test Genre 2
 
     await books[2].setAuthors([authors[2].id]); // Unique Author
