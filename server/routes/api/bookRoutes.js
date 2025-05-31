@@ -1,8 +1,9 @@
 ﻿const express = require('express');
 const router = express.Router();
 
-const { getBooks, getBookById }= require("../../services/books/get");
-const {createBook} = require("../../services/books/post");
+const { getBooks, getBookById } = require("../../services/books/get");
+const { createBook } = require("../../services/books/post");
+const { deleteBookById } = require("../../services/books/delete");
 
 function prepareFilters(query) {
     return {
@@ -33,7 +34,6 @@ router.get('/books/:id', async (req, res, next) => {
     catch (error) {
         next(error);
     }
-
 })
 
 router.post('/books', async (req, res, next) => {
@@ -43,7 +43,15 @@ router.post('/books', async (req, res, next) => {
     }
     catch (error) {
         next(error);
-    } 
+    }
 })
-
+router.delete('/books/:id', async (req, res, next) => {
+    try {
+        const deletedBook = await deleteBookById(req.params.id);
+        res.json(deletedBook);
+    }
+    catch (error) {
+        next(error);
+    }
+});
 module.exports = router;

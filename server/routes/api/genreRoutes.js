@@ -3,6 +3,7 @@ const router = express.Router();
 
 const { getGenres, getGenreById } = require("../../services/genres/get");
 const { createGenre } = require("../../services/genres/post");
+const {deleteGenreById} = require("../../services/genres/delete");
 
 router.get('/genres', async (req, res, next) => {
     try {
@@ -34,5 +35,14 @@ router.post('/genres', async (req, res, next) => {
         next(error);
     }
 })
+router.delete('/genres/:id', async (req, res, next) => {
+    try {
+        const deletedGenre = await deleteGenreById(req.params.id);
+        res.json(deletedGenre);
+    }
+    catch (error) {
+        next(error);
+    }
+});
 
 module.exports = router;

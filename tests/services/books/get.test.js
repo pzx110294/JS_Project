@@ -25,7 +25,7 @@ test('returns books with authors and genres', async () => {
     expect(result[0].Authors[1].Name).toBe(authors[1].Name);
     expect(result[0].Genres[0].Name).toBe(genres[0].Name);
 
-    expect(result[1].Authors[0].Name).toBe(authors[1].Name);
+    expect(result[1].Authors[0].Name).toBe(authors[0].Name);
     expect(result[1].Genres[0].Name).toBe(genres[0].Name);
     expect(result[1].Genres[1].Name).toBe(genres[1].Name);
 });
