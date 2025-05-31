@@ -2,10 +2,12 @@
 const { validateFields } = require('../../helpers/validateFields');
 const {normalizeIds} = require("../../helpers/normalize");
 const {checkIfAuthorExists, checkIfGenreExists} = require("../../helpers/checkIfExists");
+const { validateDate } = require('../../helpers/validateDate');
 
 async function updateBookById(id, book) {
     validateFields(book, ['Title', 'ISBN', 'AuthorId', 'GenreId'], 'Book');
-
+    validateDate(book.PublicationDate);
+    
     let authorIds = normalizeIds(book.AuthorId, 'authorId');
     let genreIds = normalizeIds(book.GenreId, 'genreId');
 
@@ -18,6 +20,7 @@ async function updateBookById(id, book) {
         error.status = 404;
         throw error;
     }
+    
     await existingBook.update({
         Title: book.Title,
         ISBN: book.ISBN,
