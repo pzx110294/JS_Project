@@ -4,6 +4,7 @@ const router = express.Router();
 const { getBooks, getBookById } = require("../../services/books/get");
 const { createBook } = require("../../services/books/post");
 const { deleteBookById } = require("../../services/books/delete");
+const {updateBookById} = require("../../services/books/put");
 
 function prepareFilters(query) {
     return {
@@ -34,12 +35,20 @@ router.get('/books/:id', async (req, res, next) => {
     catch (error) {
         next(error);
     }
-})
-
+});
 router.post('/books', async (req, res, next) => {
     try {
         const newBook = await createBook(req.body);
         res.status(201).json(newBook);
+    }
+    catch (error) {
+        next(error);
+    }
+});
+router.put('/books/:id', async (req, res, next) => {
+    try {
+        const updatedBook = await updateBookById(req.params.id, req.body);
+        res.json(updatedBook);
     }
     catch (error) {
         next(error);
