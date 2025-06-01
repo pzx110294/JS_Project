@@ -1,5 +1,7 @@
 ﻿function logErrors(err, req, res, next) {
-    console.log(`\x1b[31m${err.status} ${err.message}\n${err.stack} \x1b[0m`);
+    if (process.env.NODE_ENV !== 'test') {
+        console.log(`\x1b[31m${err.status} ${err.message}\n${err.stack} \x1b[0m`);
+    } 
     next(err);
 }
 

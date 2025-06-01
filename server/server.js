@@ -16,19 +16,26 @@ app.use(express.urlencoded({
 }))
 app.use(logRequests);
 
-db.sequelize.sync({force: false})
-    .then(async () => {
-        await seedData();
-        
-        require('./routes')(app);
-        app.use(logErrors);
-        app.use(errorHandler);
+const startServer = async () => {
+    await db.sequelize.sync({force: false})
+    await seedData();
 
-        app.listen(3000, () => {
-                console.log("\x1b[33mhttp://localhost:3000/ \x1b[0m")
-            }
-        );
-    }).catch(err => {
-    console.error("Sequelize failed to sync:", err);
-    process.exit(1);
-});
+    require('./routes')(app);
+    app.use(logErrors);
+    app.use(errorHandler);
+
+    return app.listen(3000, () => {
+            console.log("\x1b[33mhttp://localhost:3000/ \x1b[0m")
+        }
+    );
+};
+
+module.exports = { app, startServer };
+
+if (require.main === module) {
+    startServer()
+    .catch(err => {
+            console.error("Sequelize failed to sync:", err);
+            process.exit(1);
+    });
+}

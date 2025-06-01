@@ -82,6 +82,16 @@ async function seedData() {
     await books[6].setAuthors([authors[6].id]); // Asimov
     await books[6].setGenres([genres[4].id]); // Sci-Fi
 
+    await db.User.create({
+        username: 'admin',
+        password: 'admin',
+        role: 'admin'
+    });
+    await db.User.create({
+        username: 'user',
+        password: 'user',
+        role: 'user'
+    });
     return [ authors, genres, books ];
 }
 

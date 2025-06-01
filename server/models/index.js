@@ -6,6 +6,7 @@ const db = {};
 db.Author = require('./authors')(sequelize, Sequelize.DataTypes);
 db.Book = require('./books')(sequelize, Sequelize.DataTypes);
 db.Genre = require('./genres')(sequelize, Sequelize.DataTypes);
+db.User = require('./users')(sequelize, Sequelize.DataTypes);
 
 db.Book.belongsToMany(db.Author, { through: 'BookAuthors' });
 db.Author.belongsToMany(db.Book, { through: 'BookAuthors', onDelete: 'CASCADE' });

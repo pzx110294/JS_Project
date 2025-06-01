@@ -5,6 +5,7 @@ const { getBooks, getBookById } = require("../../services/books/get");
 const { createBook } = require("../../services/books/post");
 const { deleteBookById } = require("../../services/books/delete");
 const {updateBookById} = require("../../services/books/put");
+const {auth} = require("../../middleware/authMiddleware");
 
 function prepareFilters(query) {
     return {
@@ -36,7 +37,7 @@ router.get('/books/:id', async (req, res, next) => {
         next(error);
     }
 });
-router.post('/books', async (req, res, next) => {
+router.post('/books', auth(['admin']), async (req, res, next) => {
     try {
         const newBook = await createBook(req.body);
         res.status(201).json(newBook);
@@ -45,7 +46,7 @@ router.post('/books', async (req, res, next) => {
         next(error);
     }
 });
-router.put('/books/:id', async (req, res, next) => {
+router.put('/books/:id', auth(['admin']), async (req, res, next) => {
     try {
         const updatedBook = await updateBookById(req.params.id, req.body);
         res.json(updatedBook);
@@ -54,7 +55,7 @@ router.put('/books/:id', async (req, res, next) => {
         next(error);
     }
 })
-router.delete('/books/:id', async (req, res, next) => {
+router.delete('/books/:id', auth(['admin']), async (req, res, next) => {
     try {
         const deletedBook = await deleteBookById(req.params.id);
         res.json(deletedBook);
