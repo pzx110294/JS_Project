@@ -12,10 +12,10 @@
             type: DataTypes.DATEONLY,
             allowNull: true
         },
-         CoverUrl: {
-        type: DataTypes.STRING,
-        allowNull: true
-    }
+        CoverUrl: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
     }, {
         timestamps: true
     });

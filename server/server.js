@@ -16,13 +16,14 @@ app.use(express.urlencoded({
 }))
 app.use(logRequests);
 
+require('./routes')(app);
+app.use(logErrors);
+app.use(errorHandler);
+
 const startServer = async () => {
     await db.sequelize.sync({force: false})
     await seedData();
 
-    require('./routes')(app);
-    app.use(logErrors);
-    app.use(errorHandler);
 
     return app.listen(3000, () => {
             console.log("\x1b[33mhttp://localhost:3000/ \x1b[0m")
