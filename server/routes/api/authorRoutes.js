@@ -3,8 +3,6 @@ const router = express.Router();
 
 const { getAuthors, getAuthorById} = require("../../services/authors/get");
 const { createAuthor } = require("../../services/authors/post");
-const { updateAuthorById } = require("../../services/authors/put");
-const {deleteAuthorById} = require("../../services/authors/delete");
 
 router.get('/authors', async (req, res, next) => {
     try {
@@ -36,22 +34,5 @@ router.post('/authors', async (req, res, next) => {
         next(error);
     }
 })
-router.put('/authors/:id', async (req, res, next) => {
-    try {
-        const updateAuthor = await updateAuthorById(req.params.id, req.body);
-        res.json(updateAuthor);
-    } 
-    catch (error) {
-        next(error);
-    }
-});
-router.delete('/authors/:id', async (req, res, next) => {
-    try {
-        const deletedAuthor = await deleteAuthorById(req.params.id);
-        res.json(deletedAuthor);
-    }
-    catch (error) {
-        next(error);
-    }
-});
+
 module.exports = router;

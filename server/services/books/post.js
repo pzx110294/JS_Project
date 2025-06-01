@@ -1,30 +1,33 @@
 ﻿const db = require('../../models');
-const { Book, Author, Genre } = db;
-const { validateFields } = require('../../helpers/validateFields');
-const { normalizeIds } = require('../../helpers/normalize');
-const { checkIfGenreExists, checkIfAuthorExists } = require('../../helpers/checkIfExists');
-const { validateDate } = require('../../helpers/validateDate');
 
-async function createBook(book) {
-    validateFields(book, ['Title', 'ISBN', 'AuthorId', 'GenreId'], 'Book');
-    validateDate(book.PublicationDate);
-    
-    let authorIds = normalizeIds(book.AuthorId, 'authorId');
-    let genreIds = normalizeIds(book.GenreId, 'genreId');
-    await checkIfAuthorExists(authorIds);
-    await checkIfGenreExists(genreIds);
-    const newBook = await Book.create({
-        Title: book.Title,
-        ISBN: book.ISBN,
-        PublicationDate: book.PublicationDate
-    });
-    await newBook.setAuthors(authorIds);
-    await newBook.setGenres(genreIds);
-    
-    const result = await Book.findByPk(newBook.id, {
-        include: [Author, Genre]
-    });
-    return result;
+async function createBook(req) {
+    const { Title, ISBN, PublicationDate, Authors } = req.body;
+
+    // Przygotuj dane książki
+    const bookData = {
+        Title,
+        ISBN,
+        PublicationDate: PublicationDate || null,
+        CoverUrl: req.file ? '/images/' + req.file.filename : null
+    };
+
+    // Utwórz książkę
+    const newBook = await db.Book.create(bookData);
+
+    // Obsługa autorów (jeśli przekazani)
+    if (Authors) {
+        const authorNames = Authors.split(',').map(name => name.trim());
+        const authorInstances = await Promise.all(
+            authorNames.map(name =>
+                db.Author.findOrCreate({ where: { Name: name } }).then(([author]) => author)
+            )
+        );
+        await newBook.setAuthors(authorInstances);
+    }
+
+    return newBook;
 }
 
-module.exports = { createBook };
+module.exports = {
+    createBook
+};

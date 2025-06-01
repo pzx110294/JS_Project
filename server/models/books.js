@@ -2,7 +2,8 @@
     const Book = sequelize.define('Book', {
         ISBN: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         Title: {
             type: DataTypes.STRING,

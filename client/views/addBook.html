@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dodaj książkę</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <script defer src="/js/addBook.js"></script>
+</head>
+<body>
+  <main class="form-page">
+    <h1>➕ Dodaj nową książkę</h1>
+    <form id="book-form" enctype="multipart/form-data" class="book-form">
+        <a href="/" class="back-button">← Wróć do listy książek</a>
+      <label>
+        Tytuł:
+        <input type="text" name="Title" required />
+      </label>
+
+      <label>
+        ISBN:
+        <input type="text" name="ISBN" required />
+      </label>
+
+      <label>
+        Data publikacji:
+        <input type="date" name="PublicationDate" />
+      </label>
+
+      <label>
+        Autorzy (oddziel przecinkami):
+        <input type="text" name="Authors" required />
+      </label>
+
+      <label>
+        Okładka:
+        <input type="file" name="cover" accept="image/*" />
+      </label>
+
+      <button type="submit">📘 Dodaj książkę</button>
+    </form>
+    <div id="message"></div>
+  </main>
+</body>
+</html>

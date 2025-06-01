@@ -5,7 +5,8 @@ const db = require('./models');
 const { seedData } = require('./db/seedData');
 const { logRequests, logErrors } = require('./middleware/logging');
 const { errorHandler } = require('./middleware/errorHandling');
-
+const bookRoutes = require('./routes/api/bookRoutes');
+app.use('/api', bookRoutes);
 app.get('/favicon.ico', (req, res) =>
     res.sendFile(path.join(__dirname, '../client/icon/favicon-16x16.png'))
 );
@@ -16,7 +17,7 @@ app.use(express.urlencoded({
 }))
 app.use(logRequests);
 
-db.sequelize.sync({force: false})
+db.sequelize.sync({ force: true })
     .then(async () => {
         await seedData();
         
