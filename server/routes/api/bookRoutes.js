@@ -16,17 +16,17 @@ function prepareFilters(query) {
         GenreId: query.GenreId,
     }
 }
-router.get('/books', async (req, res, next) => {
+router.get('/books', auth([], true), async (req, res, next) => {
     try {
         const filters = prepareFilters(req.query);
-        const result = await getBooks(filters);
+        const result = await getBooks(filters, req.user);
         res.json(result);
     }
     catch (error) {
         next(error);
     }
 });
-router.get('/books/:id', auth(), async (req, res, next) => {
+router.get('/books/:id', auth([], true), async (req, res, next) => {
     try {
         const result = await getBookById(req.params.id, req.user);
         if (result) {

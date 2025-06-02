@@ -2,7 +2,8 @@
 const {Book, Author, Genre } = db;
 const { validateFields } = require('../../helpers/validateFields');
 const {Op} = require("sequelize");
-async function getBooks(filters = {}) {
+async function getBooks(filters = {}, user) {
+    console.log(user)
     let where = {};
     const include = [
         {
@@ -16,6 +17,19 @@ async function getBooks(filters = {}) {
             through: { attributes: [] }
         }
     ];
+    if (user) {
+        include.push({
+            model: db.User,
+            as: 'Library',
+            attributes: ['username'],
+            through: {
+                attributes: ['status'],
+                where: {userId: user.id}
+            },
+            required: false
+        });
+    }
+    console.log(user)
     if (filters.Title) {
         where.Title = { [Op.like]: `%${filters.Title}%` };
     }
@@ -50,8 +64,17 @@ async function getBooks(filters = {}) {
 async function getBookById(id, user) {
     const include = [Author, Genre];
     if (user) {
-        console.log('User is logged in');
-    } 
+        include.push({
+            model: db.User,
+            as: 'Library',
+            attributes: ['username'],
+            through: {
+                attributes: ['status'],
+                where: {userId: user.id}
+            },
+            required: false
+        });
+    }
     const book = await Book.findByPk(id, {include});
     validateFields(book, ['Title', 'ISBN', 'Authors', 'Genres'], 'Book');
     return book;
