@@ -3,8 +3,6 @@ async function fetchBooks() {
     if (!bookList) return;
 
     try {
-        const apiUrl = '/api/books';
-
         const response = await fetch('/api/books');
         if (!response.ok) throw new Error(`HTTP error  ${response.status}`);
 

@@ -22,5 +22,4 @@ async function loadNavbar() {
     await initializeAuth();
 }
 
-// Start loading
 document.addEventListener('DOMContentLoaded', loadNavbar);

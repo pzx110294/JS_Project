@@ -11,7 +11,6 @@ function authMiddleware(roles = []) {
       }
 
       const decoded = verifyToken(token);
-      console.log(decoded)
       req.user = decoded;
 
       if (roles.length && !roles.includes(decoded.role)) {

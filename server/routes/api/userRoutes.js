@@ -15,8 +15,6 @@ router.post('/register', async (req, res, next) => {
 });
 
 router.post('/login', async (req, res, next) => {
-
-  console.log(req.body)
   try {
     validateFields(req.body, ['username', 'password'], 'User');
     const token = await login(req.body.username, req.body.password);
