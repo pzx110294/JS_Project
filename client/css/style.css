@@ -70,7 +70,6 @@ main {
     padding: 10px 16px;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 0.95rem;
     transition: background-color 0.3s ease;
 }
 
@@ -183,4 +182,38 @@ header {
 }
 .hint a:hover {
   text-decoration: underline;
+}
+#auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding: 10px 20px;
+}
+.auth-button {
+    padding: 8px 16px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem; 
+    line-height: 1.4;
+}
+.auth-button:hover {
+    background-color: #357ab8;
+    transform: scale(1.05);
+}
+#user {
+    font-weight: bold;
+    color: #333;
+    background-color: #f0f0f0;
+    padding: 6px 12px;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
