@@ -3,7 +3,6 @@ const {Book, Author, Genre } = db;
 const { validateFields } = require('../../helpers/validateFields');
 const {Op} = require("sequelize");
 async function getBooks(filters = {}, user) {
-    console.log(user)
     let where = {};
     const include = [
         {
@@ -29,7 +28,6 @@ async function getBooks(filters = {}, user) {
             required: false
         });
     }
-    console.log(user)
     if (filters.Title) {
         where.Title = { [Op.like]: `%${filters.Title}%` };
     }

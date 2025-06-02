@@ -10,8 +10,9 @@
     `;
 
         if (showStatus) {
+            console.log(book)
             let statusHtml;
-            if (book.Library.length === 1) {
+            if (book.Library && book.Library.length === 1) {
                 statusHtml = this.renderStatusControls(book);
             } 
             else {
