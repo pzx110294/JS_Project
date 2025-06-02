@@ -14,7 +14,11 @@
             let statusHtml;
             if (book.Library && book.Library.length === 1) {
                 statusHtml = this.renderStatusControls(book);
-            } 
+            }
+            else if (book.UserBook) {
+                book.Library = book.UserBook
+                statusHtml = this.renderStatusControls(book);
+            }
             else {
                 statusHtml = `<button class="add-to-library" data-id="${book.id}">Dodaj do biblioteki</button>`;
             }
@@ -38,16 +42,16 @@ renderStatusControls: function (book) {
     return `
         <div class="status-controls">
             <select class="status-select" data-id="${book.id}">
-                <option value="to-read" ${book.Library[0].status === 'to-read' ? 'selected' : ''}>Do przeczytania</option>
-                <option value="reading" ${book.Library[0].status === 'reading' ? 'selected' : ''}>W trakcie</option>
-                <option value="completed" ${book.Library[0].status === 'completed' ? 'selected' : ''}>Przeczytane</option>
+                <option value="to-read" ${book.Library.status === 'to-read' ? 'selected' : ''}>Do przeczytania</option>
+                <option value="reading" ${book.Library.status === 'reading' ? 'selected' : ''}>W trakcie</option>
+                <option value="completed" ${book.Library.status === 'completed' ? 'selected' : ''}>Przeczytane</option>
             </select>
             <button class="save-status" data-id="${book.id}" >Zapisz</button>
         </div>
     `;
 }
 }
-async function filterBooksByAuthor(authorId) {
+async function FilterBooksByAuthor(authorId) {
   const bookList = document.getElementById("book-list");
   const filterControls = document.getElementById("filter-controls");
 

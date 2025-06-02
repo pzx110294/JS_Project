@@ -22,6 +22,7 @@ async function getBooks(filters = {}, user) {
             as: 'Library',
             attributes: ['username'],
             through: {
+                model: db.UserBook,
                 attributes: ['status'],
                 where: {userId: user.id}
             },
