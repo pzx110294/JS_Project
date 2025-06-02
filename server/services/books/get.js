@@ -47,8 +47,12 @@ async function getBooks(filters = {}) {
     }
     return books;
 }
-async function getBookById(id) {
-    const book = await Book.findByPk(id, {include: [Author, Genre]});
+async function getBookById(id, user) {
+    const include = [Author, Genre];
+    if (user) {
+        console.log('User is logged in');
+    } 
+    const book = await Book.findByPk(id, {include});
     validateFields(book, ['Title', 'ISBN', 'Authors', 'Genres'], 'Book');
     return book;
 }

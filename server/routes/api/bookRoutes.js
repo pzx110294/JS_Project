@@ -26,9 +26,9 @@ router.get('/books', async (req, res, next) => {
         next(error);
     }
 });
-router.get('/books/:id', async (req, res, next) => {
+router.get('/books/:id', auth(), async (req, res, next) => {
     try {
-        const result = await getBookById(req.params.id);
+        const result = await getBookById(req.params.id, req.user);
         if (result) {
             res.json(result);
         }

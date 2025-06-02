@@ -1,19 +1,16 @@
 ﻿const { verifyToken } = require('../helpers/tokenHelper');
 
-function authMiddleware(roles = []) {
+function authMiddleware(roles = [], optional = false) {
   return async (req, res, next) => {
     try {
-
       const token = req.headers.authorization?.split(' ')[1];
-      if (!token) {
-
-        throw new Error('Unauthorized');
-      }
-
-      const decoded = verifyToken(token);
-      req.user = decoded;
-
-      if (roles.length && !roles.includes(decoded.role)) {
+      if (token) {
+        const decoded = verifyToken(token);
+        req.user = decoded;
+        if (roles.length && !roles.includes(decoded.role)) {
+          throw new Error('Unauthorized');
+        }
+      } else if (!optional) {
         throw new Error('Unauthorized');
       }
       next();
@@ -23,5 +20,6 @@ function authMiddleware(roles = []) {
     }
   };
 }
+
 
 module.exports = { auth: authMiddleware };
