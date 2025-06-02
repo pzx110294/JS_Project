@@ -46,3 +46,56 @@ renderStatusControls: function (book) {
     `;
 }
 }
+async function filterBooksByAuthor(authorId) {
+  const bookList = document.getElementById("book-list");
+  const filterControls = document.getElementById("filter-controls");
+
+  if (!bookList || !authorId) return;
+
+  bookList.innerHTML = "<p>Ładowanie książek autora...</p>";
+
+  try {
+    console.log("📡 Pobieram autora:", authorId);
+
+    const res = await fetch(`/api/authors/${authorId}`);
+    console.log("📥 Odpowiedź:", res);
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.error("❌ Błąd backendu:", res.status, errorText);
+      throw new Error("Błąd pobierania autora");
+    }
+
+    const author = await res.json();
+    console.log("✅ Dane autora:", author);
+
+    bookList.innerHTML = "";
+
+    if (!author.Books || !author.Books.length) {
+      bookList.innerHTML = "<p>Autor nie ma przypisanych książek.</p>";
+      return;
+    }
+
+    author.Books.forEach(book => {
+      const cover = `https://covers.openlibrary.org/b/isbn/${book.ISBN}-M.jpg`;
+
+      const div = document.createElement("div");
+      div.classList.add("book");
+
+      div.innerHTML = `
+        <img src="${cover}" class="cover" alt="Okładka ${book.Title}">
+        <h3>${book.Title}</h3>
+        <p><strong>Autor:</strong> ${author.Name}</p>
+        <button class="borrow-btn">Dodaj</button>
+      `;
+
+      bookList.appendChild(div);
+    });
+
+    filterControls.style.display = "block";
+
+  } catch (err) {
+    console.error(err);
+    bookList.innerHTML = "<p>❌ Nie udało się załadować książek autora.</p>";
+  }
+}
