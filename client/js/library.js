@@ -94,7 +94,6 @@ async function handleBookDelete(e) {
         const response = await authFetch(`/api/library/${bookId}`, {
             method: 'DELETE'
         });
-        console.log(response);
         if (!response.ok) {
             const error = await response.json();
             throw error;
