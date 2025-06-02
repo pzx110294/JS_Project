@@ -9,6 +9,7 @@ async function fetchUserLibrary() {
     const librarySection = document.getElementById('user-library');
 
     try {
+
         const response = await authFetch('/api/library');
         const data = await response.json();
         const library = data.Library;
@@ -22,37 +23,7 @@ async function fetchUserLibrary() {
                 showStatus: isAuthenticated()
             });
             librarySection.appendChild(bookElement);
-            // const title = book.Title || "Brak tytułu";
-            //
-            // const authors = book.Authors?.length > 0
-            //     ? book.Authors.map(author => author.Name).join(', ')
-            //     : "Nieznany autor";
-            //
-            // const genres = book.Genres?.length > 0
-            //     ? book.Genres.map(genre => genre.Name).join(', ')
-            //     : 'Nieznany gatunek';
-            // const status = book.UserBook.status || "Nieznany status";
-            // const coverUrl =   `https://covers.openlibrary.org/b/isbn/${book.ISBN}-M.jpg`;
-            // const bookDiv = document.createElement('div');
-            // bookDiv.classList.add('book-item');
-            // bookDiv.innerHTML = `
-            //     <h3>${title}</h3>
-            //     <img src="${coverUrl}" alt="Okładka ${title}" class="cover">
-            //     <p><strong>Autorzy:</strong> ${authors}</p>
-            //     <p><strong>Gatunki:</strong> ${genres}</p>
-            //     <p><strong>Status:</strong> ${status}</p>
-            //     <label>
-            //         <strong>Status:</strong>
-            //         <select class="status-select" data-id="${book.id}">
-            //             <option value="to read" ${status === 'to read' ? 'selected' : ''}>Do przeczytania</option>
-            //             <option value="reading" ${status === 'reading' ? 'selected' : ''}>W trakcie</option>
-            //             <option value="finished" ${status === 'finished' ? 'selected' : ''}>Przeczytane</option>
-            //         </select>
-            //     </label>
-            //     <button class="update-btn" data-id="${book.id}">Zapisz</button>
-            //     <button class="delete-btn" data-id="${book.id}">Usuń</button>
-            // `;
-            // librarySection.appendChild(bookDiv);
+
         }
         
         document.querySelectorAll('.update-btn').forEach(btn => {

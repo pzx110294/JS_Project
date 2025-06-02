@@ -38,8 +38,8 @@
     },
 
 renderStatusControls: function (book) {
-    console.log(book)
     return `
+        <div>Status: ${book.Library[0]}</div>
         <div class="status-controls">
             <select class="status-select" data-id="${book.id}">
                 <option value="to-read" ${book.Library.status === 'to-read' ? 'selected' : ''}>Do przeczytania</option>
