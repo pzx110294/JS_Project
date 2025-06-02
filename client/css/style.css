@@ -14,7 +14,7 @@ body {
 
 /* Nagłówek */
 header {
-    background-color: #34495e;
+    background-color: #0d1d2e;
     color: white;
     padding: 20px;
     text-align: center;
@@ -270,4 +270,12 @@ header {
 
 .menu-dropdown button.delete-btn::before {
   content: "🗑️ ";
+}
+.header-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

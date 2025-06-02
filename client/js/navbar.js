@@ -6,7 +6,7 @@ async function loadNavbar() {
     
     const navbarHTML = `
     <div class="header-bar">
-        <a href="/"><h1>📚 Moja Bibioteka</h1></a>
+        <a href="/"><h1 class="header-title">📚 Moja Biblioteka</h1></a>
         <div id="auth-buttons">
             <a href="/login" class="auth-button" id="login-btn">Zaloguj się</a>
             <a href="/register" class="auth-button" id="register-btn">Zarejestruj się</a>
