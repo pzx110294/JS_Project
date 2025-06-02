@@ -3,7 +3,11 @@ async function fetchBooks() {
     if (!bookList) return;
 
     try {
-        const response = await fetch('/api/books');
+        const response = await fetch('/api/books', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+            }
+        });
         if (!response.ok) throw new Error(`HTTP error  ${response.status}`);
 
         const books = await response.json();
@@ -14,8 +18,8 @@ async function fetchBooks() {
         }
 
         bookList.innerHTML = "";
-        books.forEach(book => {
-            const bookElement = Book.renderBook(book, {
+        for (const book of books) {
+            const bookElement = await Book.renderBook(book, {
                 showStatus: isAuthenticated()
             });
             
@@ -51,7 +55,7 @@ async function fetchBooks() {
         //
             bookList.appendChild(bookElement);
 
-        });
+        }
     } catch (error) {
         bookList.innerHTML = "<p>Nie udało się załadować książek.</p>";
         console.error("Błąd pobierania książek:", error);
