@@ -1,0 +1,84 @@
+form {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    font-family: sans-serif;
+}
+
+form h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+form div {
+    margin-bottom: 16px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #444;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #4a90e2;
+}
+
+form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4a90e2;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+form button:hover {
+    background-color: #357ab8;
+    transform: scale(1.02);
+}
+
+#message {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 0.95rem;
+    color: red;
+}
+
+p {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.95rem;
+}
+
+p a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+p a:hover {
+    text-decoration: underline;
+}
