@@ -9,6 +9,9 @@ router.get('/', (req, res) => {
 router.get('/addBook', (req, res) => {
     res.sendFile(viewsPath + 'addBook.html');
 });
+router.get('/library', (req,res) => {
+    res.sendFile(viewsPath + 'library.html');
+})
 router.get('/accounts',(req, res) => {
     res.sendFile(viewsPath + 'accounts.html');
 });
