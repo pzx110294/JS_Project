@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             bookList.appendChild(bookDiv);
             
+            
         });
     } catch (error) {
         bookList.innerHTML = "<p>Nie udało się załadować książek.</p>";

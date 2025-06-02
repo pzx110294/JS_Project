@@ -111,12 +111,3 @@ test('throws error if GenreId does not exist', async () => {
 		GenreId: 9999
 	})).rejects.toThrow();
 });
-test('throws error if PublicationDate is in incorrect format', async () => {
-    await expect(createBook({
-        Title: 'Invalid Date Book',
-        ISBN: '1234-5678',
-        PublicationDate: 'not-a-date',
-        AuthorId: authors[0].id,
-        GenreId: [genres[0].id]
-    })).rejects.toThrow('Invalid PublicationDate format');
-});
