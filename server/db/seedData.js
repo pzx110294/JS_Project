@@ -26,17 +26,17 @@ async function seedData() {
     let books = await db.Book.bulkCreate([
         {
             Title: 'Test book1',
-            ISBN: '1234-5678',
+            ISBN: '9780765318411',
             PublicationDate: new Date('2023-01-01')
         },
         {
             Title: 'Test book2',
-            ISBN: '9999-9999',
+            ISBN: '9780857660978',
             PublicationDate: new Date('2024-05-01')
         },
         {
             Title: 'Unique Book',
-            ISBN: 'UNIQUE-ISBN',
+            ISBN: '9780143111603',
             PublicationDate: new Date('2022-03-15')
         },
         {

@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             const bookDiv = document.createElement("div");
             bookDiv.classList.add("book");
-            const coverUrl = book.CoverUrl || "/images/default-cover.jpg";
+            const coverUrl = book.CoverUrl || `https://covers.openlibrary.org/b/isbn/${book.ISBN}-M.jpg`;
             bookDiv.innerHTML = `
                 <img src="${coverUrl}" alt="Okładka ${title}" class="cover">
                 <h2>${title}</h2>
