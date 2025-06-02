@@ -8,5 +8,6 @@
         error.status = 400;
         throw error;
     }
+    return PublicationDate;
 }
 module.exports = { validateDate }
