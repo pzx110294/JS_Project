@@ -3,7 +3,8 @@ const { generateToken } = require('../../helpers/tokenHelper');
 const { authenticate } = require('../../helpers/authenticateUser');
 async function register(userData) {
   const user = await User.create({
-      userData,
+      username: userData.username,
+      password: userData.password,
       role: 'user'
   });
   return generateToken(user);
@@ -14,4 +15,13 @@ async function login(username, password) {
   return generateToken(user);
 }
 
-module.exports = { register, login };
+async function getUserInfo(id) {
+    const user = await User.findByPk(id, {
+        attributes: ['username', 'role']
+    });
+    if (!user) {
+        throw  new Error(`User not found`);
+    }
+    return user;
+}
+module.exports = { register, login, getUserInfo };

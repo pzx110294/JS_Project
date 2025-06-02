@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", async () => {
+    await checkUser();
+    await fetchBooks();
+});
+
+async function fetchBooks() {
     const bookList = document.getElementById("book-list");
 
     try {
@@ -35,11 +40,24 @@ document.addEventListener("DOMContentLoaded", async () => {
             `;
 
             bookList.appendChild(bookDiv);
-            
-            
+
+
         });
     } catch (error) {
         bookList.innerHTML = "<p>Nie udało się załadować książek.</p>";
         console.error("Błąd pobierania książek:", error);
     }
-});
+}
+async function checkUser() {
+    if (isAuthenticated()) {
+        const user = await getCurrentUser();
+        const role = user.role;
+        document.getElementById('login-btn').style.display = 'none';
+        document.getElementById('register-btn').style.display = 'none';
+        document.getElementById('library-btn').style.display = 'inline-block';
+        document.getElementById('logout-btn').style.display = 'inline-block';
+        document.getElementById('admin-btn').style.display = role === 'admin' ? 'inline-block' : 'none';
+        document.getElementById('user').textContent = user.username;
+    }
+}
+document.getElementById('logout-btn').addEventListener('click', logout);

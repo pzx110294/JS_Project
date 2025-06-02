@@ -1,7 +1,8 @@
 ﻿const express = require('express');
 const router = express.Router();
-const { register, login } = require('../../services/users/auth');
+const { register, login, getUserInfo} = require('../../services/users/auth');
 const { validateFields } = require('../../helpers/validateFields');
+const {auth} = require("../../middleware/authMiddleware");
 
 router.post('/register', async (req, res, next) => {
   try {
@@ -14,6 +15,8 @@ router.post('/register', async (req, res, next) => {
 });
 
 router.post('/login', async (req, res, next) => {
+
+  console.log(req.body)
   try {
     validateFields(req.body, ['username', 'password'], 'User');
     const token = await login(req.body.username, req.body.password);
@@ -22,5 +25,12 @@ router.post('/login', async (req, res, next) => {
     next(error);
   }
 });
-
+router.get('/me', auth(), async (req, res, next) => {
+  try {
+    const user = await getUserInfo(req.user.id);
+    res.json(user);
+} catch (error) {
+    next(error);
+  }
+});
 module.exports = router;

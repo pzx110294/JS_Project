@@ -1,3 +1,19 @@
+(async function verifyAdminAccess() {
+    try {
+        console.log(isAuthenticated());
+        const user = await getCurrentUser();
+        console.log(`user: `);
+        console.log(user);
+        if (user.role !== 'admin') {
+            alert("Tylko administratorzy mogą dodawać książki.");
+            window.location.href = "/";
+        }
+    } catch (error) {
+        console.log(error);
+        console.warn("User not authenticated or fetch failed");
+        window.location.href = "/login";
+    }
+})();
 document.getElementById("book-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     
@@ -9,13 +25,11 @@ document.getElementById("book-form").addEventListener("submit", async (e) => {
         GenreId: e.target.Authors.value
     };
 
-    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ4ODU4MTQ0LCJleHAiOjE3NDg5MDEzNDR9.Wv8NsF5L9OexXJfme8zV9hWZtW_6iSYRDFm7CZ6kP1I';
     try {
-        const response = await fetch("/api/books", {
+        const response = await authFetch("/api/books", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
         });

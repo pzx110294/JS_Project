@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <script src="../js/auth.js" defer></script>
+    <script src="../js/register.js" defer></script>
+</head>
+<body>
+    <form id="registerForm">
+        <h2>Register</h2>
+        <div>
+            <label>Username:</label>
+            <input type="text" id="username" required>
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" id="password" required>
+        </div>
+        <div>
+            <label>Confirm Password:</label>
+            <input type="password" id="confirmPassword" required>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+    <div id="message"></div>
+    <p>Already have an account? <a href="/login">Login here</a></p>
+</body>
+</html>
