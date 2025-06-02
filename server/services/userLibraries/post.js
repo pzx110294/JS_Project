@@ -21,10 +21,9 @@ async function addBookToLibrary(userId, bookId, status) {
   });
   
   if (!created) {
-    await userBook.update({ status });
-    // const error = new Error('Book is already in library');
-    // error.status = 409;
-    // throw error;
+    const error = new Error('Book is already in library');
+    error.status = 409;
+    throw error;
   }
   
   return userBook;

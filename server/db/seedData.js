@@ -93,7 +93,7 @@ async function seedData() {
         password: 'user',
         role: 'user'
     });
-    return [ authors, genres, books, adminToken, userToken ];
+    return [ authors, genres, books ];
 }
 
 module.exports = { seedData };

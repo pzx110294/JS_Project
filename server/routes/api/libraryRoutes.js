@@ -4,6 +4,7 @@ const { auth } = require('../../middleware/authMiddleware');
 const { addBookToLibrary } = require('../../services/userLibraries/post');
 const { getUserLibrary } = require('../../services/userLibraries/get');
 const {updateLibraryStatus} = require("../../services/userLibraries/put");
+const {deleteLibraryBook} = require("../../services/userLibraries/delete");
 
 router.post('/library', auth(['user', 'admin']), async (req, res, next) => {
   try {
@@ -27,6 +28,14 @@ router.get('/library', auth(['user', 'admin']), async (req, res, next) => {
     res.json(result);
   } catch (error) {
     next(error);
+  }
+});
+router.delete('/library/:id', auth(['user', 'admin']), async (req, res, next) => {
+  try {
+    const result = await deleteLibraryBook(req.user.id, req.params.id);
+    res.json(result);
+  } catch (err) {
+    next(err);
   }
 });
 

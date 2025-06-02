@@ -1,5 +1,4 @@
 ﻿const db = require('../../models');
-const { UserBook } = db;
 
 async function updateLibraryStatus(userId, bookId, status) {
     const validStatuses = ['to read', 'reading', 'finished'];
@@ -10,7 +9,7 @@ async function updateLibraryStatus(userId, bookId, status) {
         throw error;
     }
 
-    const userBook = await UserBook.findOne({
+    const userBook = await db.UserBook.findOne({
         where: { UserId: userId, BookId: bookId },
         attributes: { exclude: ['createdAt', 'updatedAt'] } 
     });
