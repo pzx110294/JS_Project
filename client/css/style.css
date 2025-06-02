@@ -279,3 +279,32 @@ header {
   align-items: center;
   gap: 10px;
 }
+#user-library {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.book-item {
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.book-item img.cover {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+.book-item h3 {
+  height: 3.4em; /* np. 2 linijki tekstu */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
