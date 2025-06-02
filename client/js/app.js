@@ -27,14 +27,26 @@ async function fetchBooks() {
 
             const bookDiv = document.createElement("div");
             bookDiv.classList.add("book");
-            const coverUrl =  '' // || `https://covers.openlibrary.org/b/isbn/${book.ISBN}-M.jpg`;
+            const coverUrl =  ''  || `https://covers.openlibrary.org/b/isbn/${book.ISBN}-M.jpg`;
             bookDiv.innerHTML = `
                 <img src="${coverUrl}" alt="Okładka ${title}" class="cover">
                 <h2>${title}</h2>
                 <p><strong>Autorzy:</strong> ${authors}</p>
                 <p><strong>📅 Data publikacji:</strong> ${publicationDate}</p>
-                <button>Wypożycz</button>
-            `;
+                <p><strong>Status:</strong> ${book.status}</p>
+
+                <div class="book-actions">
+                    <button class="borrow-btn">Wypożycz</button>
+                    <div class="menu-wrapper">
+                        <button class="menu-button">⋮</button>
+                        <div class="menu-dropdown">
+                    <button class="edit-btn" data-id="${book.id}">Edit</button>
+                    <button class="delete-btn" data-id="${book.id}">Delete</button>
+                </div>
+            </div>
+        </div>
+        `;
+
             bookList.appendChild(bookDiv);
 
         });
@@ -45,4 +57,23 @@ async function fetchBooks() {
 }
 document.addEventListener("DOMContentLoaded", async () => {
     await fetchBooks();
+});
+
+document.addEventListener("click", (e) => {
+  const allMenus = document.querySelectorAll(".menu-dropdown");
+  allMenus.forEach(menu => (menu.style.display = "none"));
+
+  if (e.target.classList.contains("menu-button")) {
+    const menu = e.target.nextElementSibling;
+    menu.style.display = "block";
+    e.stopPropagation();
+  }
+});
+
+// Obsługa kliknięcia w przycisk "Edit"
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("edit-btn")) {
+    const bookId = e.target.dataset.id;
+    window.location.href = `/editBook.html?id=${bookId}`;
+  }
 });

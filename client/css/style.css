@@ -46,6 +46,7 @@ main {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.05);
     transition: transform 0.2s ease;
+    
 }
 
 .book:hover {
@@ -219,4 +220,54 @@ header {
 }
 #user:empty {
     display: none;
+}
+.book-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* odstęp między "Wypożycz" a ⋮ */
+  margin-top: 12px;
+}
+.menu-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-dropdown {
+  min-width: 130px;
+  padding: 8px 0;
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  z-index: 9999;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: visible;
+}
+
+.menu-dropdown button {
+  width: 100%;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 0.95rem;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Efekt najechania */
+.menu-dropdown button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Opcjonalnie dodaj ikony: */
+.menu-dropdown button.edit-btn::before {
+  content: "✏️ ";
+}
+
+.menu-dropdown button.delete-btn::before {
+  content: "🗑️ ";
 }
