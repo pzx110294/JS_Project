@@ -82,6 +82,7 @@ async function fetchUserLibrary() {
                const error = await response.json();
                throw error;
            } 
+           window.location.href = '/library';
        } catch (err) {
            console.error("Błąd aktualizacji statusu:", err);
        }
@@ -89,6 +90,18 @@ async function fetchUserLibrary() {
 
 async function handleBookDelete(e) {
     const bookId = e.target.dataset.id;
-    // Implement delete logic using DELETE /api/library/:id
-    alert("DELETE");
+    try {
+        const response = await authFetch(`/api/library/${bookId}`, {
+            method: 'DELETE'
+        });
+        console.log(response);
+        if (!response.ok) {
+            const error = await response.json();
+            throw error;
+        }
+        window.location.href = '/library';
+    }
+    catch (error) {
+        console.error("Bląd usunięcia: ", error)
+    }
 }
