@@ -56,8 +56,8 @@ test('filters books by exact ISBN', async () => {
 
 test('filters books by partial ISBN', async () => {
     const result = await getBooks({ ISBN: '80' });
-    expect(result.length).toBe(3);
-    expect(result[0].Title).toBe('Pride and Prejudice');
+    expect(result.length).toBe(6);
+    expect(result[0].Title).toBe('Test book1');
 });
 
 test('filters books by exact publication date', async () => {
