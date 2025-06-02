@@ -87,13 +87,11 @@ async function updateNavbar(user) {
     document.getElementById('logout-btn')?.addEventListener('click', logout);
 }
 
-
-
 window.initializeAuth = async function() {
     if (!isAuthenticated()) return;
-
     try {
         const user = await getCurrentUser();
+        console.log(user);
         await updateNavbar(user);
     } catch (error) {
         console.error('Auth initialization error:', error);
