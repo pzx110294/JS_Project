@@ -1,27 +1,39 @@
 document.getElementById("book-form").addEventListener("submit", async (e) => {
     e.preventDefault();
+    
+    const formData = {
+        Title: e.target.Title.value,
+        ISBN: e.target.ISBN.value,
+        PublicationDate: e.target.PublicationDate.value,
+        AuthorId: e.target.Authors.value,
+        GenreId: e.target.Authors.value
+    };
 
-    const form = e.target;
-    const formData = new FormData(form);
-
+    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzQ4ODU4MTQ0LCJleHAiOjE3NDg5MDEzNDR9.Wv8NsF5L9OexXJfme8zV9hWZtW_6iSYRDFm7CZ6kP1I';
     try {
         const response = await fetch("/api/books", {
             method: "POST",
-            body: formData,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(formData)
         });
 
         const result = await response.json();
         const msg = document.getElementById("message");
 
         if (response.ok) {
-            msg.textContent = "Książka została dodana pomyślnie!";
+            msg.textContent = "Book added successfully!";
             msg.style.color = "green";
-            form.reset();
+            e.target.reset();
         } else {
-            msg.textContent = `Błąd: ${result.error || "nieznany"}`;
+            msg.textContent = `Error: ${result.error || "Unknown error"}`;
+            msg.style.color = "red";
         }
     } catch (err) {
         console.error(err);
-        document.getElementById("message").textContent = "Wystąpił błąd podczas wysyłki.";
+        document.getElementById("message").textContent = "Request failed";
+        document.getElementById("message").style.color = "red";
     }
 });
