@@ -2,8 +2,6 @@
     try {
         console.log(isAuthenticated());
         const user = await getCurrentUser();
-        console.log(`user: `);
-        console.log(user);
         if (user.role !== 'admin') {
             alert("Tylko administratorzy mogą dodawać książki.");
             window.location.href = "/";
@@ -14,40 +12,60 @@
         window.location.href = "/login";
     }
 })();
-document.getElementById("book-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    
-    const formData = {
-        Title: e.target.Title.value,
-        ISBN: e.target.ISBN.value,
-        PublicationDate: e.target.PublicationDate.value,
-        AuthorId: e.target.Authors.value,
-        GenreId: e.target.Authors.value
-    };
 
-    try {
-        const response = await authFetch("/api/books", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
+document.addEventListener('DOMContentLoaded', async () => {
+    const authors = fetch('/api/authors').then(res => res.json());
+    const genres = fetch('/api/genres').then(res => res.json());
+
+
+    const authorSelect = document.getElementById('author-select');
+    const genreSelect = document.getElementById('genre-select');
+
+    for (const author of await authors) {
+        const option = document.createElement('option');
+        option.value = author.id;
+        option.textContent = author.Name;
+        authorSelect.appendChild(option);
+    }
+
+    for (const genre of await genres) {
+        const option = document.createElement('option');
+        option.value = genre.id;
+        option.textContent = genre.Name;
+        genreSelect.appendChild(option);
+    }
+
+    document.getElementById('book-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const form = e.target;
+        const formData = new FormData(form);
+
+        const authorIds = Array.from(authorSelect.selectedOptions).map(opt => opt.value);
+        const genreIds = Array.from(genreSelect.selectedOptions).map(opt => opt.value);
+
+        console.log(authorIds);
+        const payload = {
+            Title: formData.get('Title'),
+            ISBN: formData.get('ISBN'),
+            PublicationDate: formData.get('PublicationDate'),
+            AuthorId: authorIds,
+            GenreId: genreIds
+        };
+
+        const res = await authFetch('/api/books', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
         });
 
-        const result = await response.json();
-        const msg = document.getElementById("message");
-
-        if (response.ok) {
-            msg.textContent = "Book added successfully!";
-            msg.style.color = "green";
-            e.target.reset();
+        const messageDiv = document.getElementById('message');
+        if (res.ok) {
+            messageDiv.textContent = 'Książka dodana!';
+            form.reset();
         } else {
-            msg.textContent = `Error: ${result.error || "Unknown error"}`;
-            msg.style.color = "red";
+            const err = await res.json();
+            messageDiv.textContent = err.message || 'Błąd dodawania książki';
         }
-    } catch (err) {
-        console.error(err);
-        document.getElementById("message").textContent = "Request failed";
-        document.getElementById("message").style.color = "red";
-    }
+    });
 });

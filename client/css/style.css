@@ -321,3 +321,35 @@ header {
   background-color: #eaf3ff;
   color: #1a5fb4;
 }
+.dropdown-content a {
+    display: block;
+    padding: 8px 16px;
+    color: #333;
+    text-decoration: none;
+}
+.dropdown-content a:hover {
+    background: #f0f0f0;
+}
+
+/* Style for multi-select dropdowns in addBook form */
+#author-select,
+#genre-select {
+  width: 100%;
+  min-height: 80px;
+  padding: 8px;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  background: #fafbfc;
+  font-size: 1rem;
+  margin-top: 4px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+#author-select:focus,
+#genre-select:focus {
+  outline: 2px solid #0078d7;
+  border-color: #0078d7;
+  background: #fff;
+}

@@ -83,7 +83,7 @@ async function updateNavbar(user) {
     document.getElementById('register-btn').style.display = 'none';
     document.getElementById('library-btn').style.display = 'inline-block';
     document.getElementById('logout-btn').style.display = 'inline-block';
-    document.getElementById('admin-btn').style.display = user.role === 'admin' ? 'inline-block' : 'none';
+    document.getElementById('admin-dropdown').style.display = user.role === 'admin' ? 'inline-block' : 'none';
     document.getElementById('user').textContent = user.username;
     document.getElementById('logout-btn')?.addEventListener('click', logout);
 }

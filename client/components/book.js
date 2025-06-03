@@ -33,8 +33,8 @@ window.Book = { renderBook: async function (book, options = {}) {
             <div class="admin-controls">
                 <button class="menu-button">⚙️</button>
                 <div class="menu-dropdown">
-                    <button class="edit-btn" data-id="${book.id}">Edytuj</button>
-                    <button class="delete-btn" data-id="${book.id}">Usuń</button>
+                    <button class="edit-btn" data-id="${book.id}" >Edytuj</button>
+                    <button class="delete-btn" data-id="${book.id}" >Usuń</button>
                 </div>
             </div>
         `;

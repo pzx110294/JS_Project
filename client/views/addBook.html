@@ -5,6 +5,7 @@
   <title>Dodaj książkę</title>
   <link rel="stylesheet" href="/css/style.css" />
   <script defer src="../js/auth.js"></script>
+  <script defer src="../js/navbar.js"></script>
   <script defer src="../js/addBook.js"></script>
 </head>
 <body>
@@ -28,8 +29,17 @@
       </label>
 
       <label>
-        Autorzy (oddziel przecinkami):
-        <input type="text" name="Authors" required />
+        Autorzy:
+        <select name="AuthorIds" id="author-select" multiple required>
+          <!-- Options will be populated by JS -->
+        </select>
+      </label>
+
+      <label>
+        Gatunki:
+        <select name="GenreIds" id="genre-select" multiple required>
+          <!-- Options will be populated by JS -->
+        </select>
       </label>
       
       <button type="submit">📘 Dodaj książkę</button>
