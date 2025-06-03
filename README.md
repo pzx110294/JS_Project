@@ -38,6 +38,8 @@ Oczywiście w razie w można korzystać z właśnego konta jeśli się zarejestr
  
  • możliwość usuwania ze swojej biblioteki książek,
  
+ • możliwość filtrowania na podstawie Autora i Gatunku
+ 
  ### Po stronie Admina:
 
  • Zarządzanie biblioteką,
