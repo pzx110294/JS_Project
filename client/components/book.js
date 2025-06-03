@@ -4,6 +4,7 @@
     'finished': 'Przeczytane'
 };
 window.Book = { renderBook: async function (book, options = {}) {
+        console.log(book)
         const {isUserAuthenticated = false, isAdmin = false} = options;
         
         const bookElement = document.createElement('div');
@@ -12,11 +13,14 @@ window.Book = { renderBook: async function (book, options = {}) {
         bookElement.innerHTML = `
         <img src="${book.CoverUrl || `https://covers.openlibrary.org/b/isbn/${book.ISBN}-M.jpg`}" class="cover">
         <h3>${book.Title}</h3>
-        <p>${book.Authors?.map(a => a.Name).join(', ') || 'Nieznany autor'}</p>
-        <p>${book.Genres?.map(a => a.Name).join(', ') || 'Brak gatunku'}</p>
+        <p>${book.Authors?.map(a =>
+            `<a href="/authors/${a.id}">${a.Name}</a>`)
+            .join(', ') || 'Nieznany autor'}</p>
+        <p>${book.Genres?.map(a => `<a href="/genres/${a.id}">${a.Name}</a>`)
+            .join(', ') || 'Brak gatunku'}</p>
         <p><b>Data wydania: </b>${book.PublicationDate || 'W przyszłości'}</p>
         `;
-
+        console.log(book.UserBook)
         if (isUserAuthenticated) {
             let statusHtml;
             if(book.UserBook) {
@@ -90,7 +94,7 @@ async function handleBookAdd(e) {
             const error = await response.json();
             throw error;
         }
-        window.location.href = '/library';
+        window.location.reload();
     }
     catch (error) {
         console.error("Bląd podczas dodawania książki: ", error);

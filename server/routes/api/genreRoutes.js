@@ -5,6 +5,7 @@ const { getGenres, getGenreById } = require("../../services/genres/get");
 const { createGenre } = require("../../services/genres/post");
 const {deleteGenreById} = require("../../services/genres/delete");
 const {updateGenreById} = require("../../services/genres/put");
+const {auth} = require("../../middleware/authMiddleware");
 
 router.get('/genres', async (req, res, next) => {
     try {
@@ -18,9 +19,9 @@ router.get('/genres', async (req, res, next) => {
         next(error);
     }
 });
-router.get('/genres/:id', async (req, res, next) => {
+router.get('/genres/:id', auth([], true), async (req, res, next) => {
     try {
-        const result = await getGenreById(req.params.id);
+        const result = await getGenreById(req.params.id, req.user);
         res.json(result);
     }
     catch (error) {

@@ -5,4 +5,7 @@ module.exports = (router) => {
     router.get('/addAuthor', (req, res) => {
         res.sendFile(viewsPath + 'addAuthor.html');
     });
+    router.get('/authors/:id', (req, res) => {
+        res.sendFile(viewsPath + 'author.html');
+    })
 };
