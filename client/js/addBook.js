@@ -1,6 +1,5 @@
 (async function verifyAdminAccess() {
     try {
-        console.log(isAuthenticated());
         const user = await getCurrentUser();
         if (user.role !== 'admin') {
             alert("Tylko administratorzy mogą dodawać książki.");
