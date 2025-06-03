@@ -6,7 +6,7 @@
         bookElement.innerHTML = `
         <img src="${book.CoverUrl || `https://covers.openlibrary.org/b/isbn/${book.ISBN}-M.jpg`}" class="cover">
         <h3>${book.Title}</h3>
-        <p>${book.Authors?.map(a => a.Name).join(', ') || 'Unknown author'}</p>
+        <p>${book.Authors.map(a => `<span class="author-link" data-id="${a.id}">${a.Name}</span>`).join(", ")}</p>
     `;
 
         if (showStatus) {
@@ -51,56 +51,58 @@ renderStatusControls: function (book) {
     `;
 }
 }
-async function FilterBooksByAuthor(authorId) {
-  const bookList = document.getElementById("book-list");
-  const filterControls = document.getElementById("filter-controls");
+document.addEventListener("click", (e) => {
+  const target = e.target;
 
-  if (!bookList || !authorId) return;
+  if (target.classList.contains("author-link")) {
+    const authorId = target.dataset.id;
+    window.location.href = `/views/author.html?id=${authorId}`;
+  }
+});
+document.addEventListener("DOMContentLoaded", async () => {
+  const params = new URLSearchParams(window.location.search);
+  const authorId = params.get("id");
 
-  bookList.innerHTML = "<p>Ładowanie książek autora...</p>";
+  const bookSection = document.getElementById("author-books");
+  const authorNameHeader = document.getElementById("author-name");
+
+  if (!authorId) {
+    bookSection.innerHTML = "<p>Nie podano autora.</p>";
+    return;
+  }
 
   try {
-    console.log("📡 Pobieram autora:", authorId);
-
     const res = await fetch(`/api/authors/${authorId}`);
-    console.log("📥 Odpowiedź:", res);
-
-    if (!res.ok) {
-      const errorText = await res.text();
-      console.error("❌ Błąd backendu:", res.status, errorText);
-      throw new Error("Błąd pobierania autora");
-    }
+    if (!res.ok) throw new Error("Nie udało się pobrać autora");
 
     const author = await res.json();
-    console.log("✅ Dane autora:", author);
+    authorNameHeader.textContent = author.Name;
 
-    bookList.innerHTML = "";
-
-    if (!author.Books || !author.Books.length) {
-      bookList.innerHTML = "<p>Autor nie ma przypisanych książek.</p>";
+    if (!author.Books || author.Books.length === 0) {
+      bookSection.innerHTML = "<p>Brak książek tego autora.</p>";
       return;
     }
 
-    author.Books.forEach(book => {
+    bookSection.innerHTML = ""; // wyczyść
+
+    for (const book of author.Books) {
+      const div = document.createElement("div");
+      div.className = "book";
       const cover = `https://covers.openlibrary.org/b/isbn/${book.ISBN}-M.jpg`;
 
-      const div = document.createElement("div");
-      div.classList.add("book");
-
       div.innerHTML = `
-        <img src="${cover}" class="cover" alt="Okładka ${book.Title}">
+        <img src="${cover}" alt="Okładka ${book.Title}" class="cover">
         <h3>${book.Title}</h3>
-        <p><strong>Autor:</strong> ${author.Name}</p>
-        <button class="borrow-btn">Dodaj</button>
       `;
 
-      bookList.appendChild(div);
-    });
-
-    filterControls.style.display = "block";
+      bookSection.appendChild(div);
+    }
 
   } catch (err) {
     console.error(err);
-    bookList.innerHTML = "<p>❌ Nie udało się załadować książek autora.</p>";
+    bookSection.innerHTML = "<p>Nie udało się załadować książek autora.</p>";
   }
-}
+});
+document.getElementById("back-btn").addEventListener("click", () => {
+  window.location.href = "/"; // lub inna strona główna
+});
