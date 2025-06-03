@@ -10,7 +10,7 @@ async function fetchUserLibrary() {
     const librarySection = document.getElementById('user-library');
     try {
         const response = await authFetch('/api/library');
-        const data = await response.json();
+        const data = await respon.json();
         const library = data.Library;
         if (library.length === 0) {
                 librarySection.innerHTML = "<p>Brak książek w bibliotece</p>";

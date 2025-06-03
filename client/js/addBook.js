@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (res.ok) {
             messageDiv.textContent = 'Książka dodana!';
             form.reset();
+            setTimeout(() => window.location.href = "/", 1500);
         } else {
             const err = await res.json();
             messageDiv.textContent = err.message || 'Błąd dodawania książki';

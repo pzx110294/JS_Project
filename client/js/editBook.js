@@ -97,6 +97,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (res.ok) {
             messageDiv.textContent = 'Książka zaktualizowana!';
+            setTimeout(() => window.location.href = "/", 1500);
         } else {
             const err = await res.json();
             messageDiv.textContent = err.message || 'Błąd edycji książki';
