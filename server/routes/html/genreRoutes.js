@@ -7,5 +7,8 @@ module.exports = (router) => {
     });
     router.get('/genres/:id', (req, res) => {
         res.sendFile(viewsPath + 'genre.html');
-    })
+    });
+    router.get('/editGenre/:id', (req, res) => {
+        res.sendFile(viewsPath + 'editGenre.html');
+    });
 };

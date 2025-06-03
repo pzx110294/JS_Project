@@ -15,6 +15,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         const user = await getCurrentUser();
         const isAdmin = user?.role === 'admin';
+
+        const adminButtons = document.getElementById('admin-buttons');
+        if (isAdmin && adminButtons) {
+            adminButtons.style.display = '';
+
+            document.getElementById('edit-author-btn').onclick = () => {
+                window.location.href = `/editAuthor/${authorId}`;
+            };
+            document.getElementById('delete-author-btn').onclick = async () => {
+                if (confirm('Czy na pewno chcesz usunąć tego autora?')) {
+                    const res = await authFetch(`/api/authors/${authorId}`, { method: 'DELETE' });
+                    if (res.ok) {
+                        window.location.href = '/';
+                    } else {
+                        const msg = await res.json();
+                        document.getElementById('message').textContent = msg.message || 'Błąd usuwania autora';
+                    }
+                }
+            };
+        }
+
         const res = await fetch(`/api/authors/${authorId}`, {headers});
         if (!res.ok) {
             messageDiv.textContent = "Nie znaleziono autora.";
