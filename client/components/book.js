@@ -20,7 +20,6 @@ window.Book = { renderBook: async function (book, options = {}) {
             .join(', ') || 'Brak gatunku'}</p>
         <p><b>Data wydania: </b>${book.PublicationDate || 'W przyszłości'}</p>
         `;
-        console.log(book.UserBook)
         if (isUserAuthenticated) {
             let statusHtml;
             if(book.UserBook) {

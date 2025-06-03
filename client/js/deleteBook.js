@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
         const book = await res.json();
         const bookElement = await Book.renderBook(book);
-        console.log(bookElement)
         bookDetailsDiv.appendChild(bookElement);
     } catch (err) {
         messageDiv.textContent = "Błąd pobierania danych książki.";

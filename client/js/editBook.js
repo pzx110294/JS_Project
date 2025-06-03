@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
     const book = await bookRes.json();
-    console.log(book)
     document.getElementById('title').value = book.Title || '';
     document.getElementById('ISBN').value = book.ISBN || '';
     document.getElementById('PublicationDate').value = book.PublicationDate
