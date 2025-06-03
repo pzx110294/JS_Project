@@ -1,7 +1,8 @@
-# MojaBiblioteka
-Aplikacja do listowania książek
+# MojaBiblioteka - Aplikacja do listowania książek
+
 Instrukcje dotyczące instalacji oraz konfiguracji:
-## Instrukcja instalacji
+
+## Instrukcja pracy z programem
 ### 1.Klonowanie repozytorium
 Skopiuj repozytorium na swoje urządzenie:
 ```bash
@@ -24,6 +25,12 @@ ADMIN:
 ```
 Oczywiście w razie w można korzystać z właśnego konta jeśli się zarejestruje
 
+### 4. Testy
+```bash
+npm test
+```
+### 5. Dodawanie książek
+
 # Możliwości Aplikacji
 
 ## Lista głównych funkcji aplikacji.
@@ -32,7 +39,20 @@ Oczywiście w razie w można korzystać z właśnego konta jeśli się zarejestr
 
  • Możliwość logowania i rejestracji,
  
- • Możliwość dodawania książek do swojej biblioteki,
+ • Możliwość dodawania książek do swojej biblioteki:
+ 
+ Przykładowa książka:
+
+    Tytuł - Fool's Errand
+  
+    ISBN - 9780002247269
+  
+    publicationDate - October 2001
+  
+    autor - Robin hobb
+  
+    Gatunek - Fantasy
+ 
  
  • możliwość edycji statusu,
  
