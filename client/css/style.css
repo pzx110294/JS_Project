@@ -120,7 +120,7 @@ main {
 }
 
 .book-item img.cover {
-  width: 100;
+  width: 100px;
   height: auto;
   border-radius: 6px;
   margin-bottom: 12px;
