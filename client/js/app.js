@@ -69,3 +69,37 @@ document.addEventListener("click", (e) => {
     window.location.href = `/editBook.html?id=${bookId}`;
   }
 });
+
+(async () => {
+  try {
+    const user = await getCurrentUser(); // ta funkcja już istnieje w projekcie
+    if (user?.role === "admin") {
+      document.getElementById("add-book-btn").style.display = "inline-block";
+    }
+  } catch (e) {
+    console.warn("Brak zalogowanego użytkownika");
+  }
+})();
+document.addEventListener("click", async (e) => {
+  if (e.target.classList.contains("add-to-library")) {
+    const bookId = e.target.dataset.id;
+
+    try {
+      const res = await authFetch("/api/library", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ BookId: bookId })
+      });
+
+      if (res.ok) {
+        e.target.disabled = true;
+        e.target.textContent = "Dodano";
+      } else {
+        alert("Błąd podczas dodawania książki");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Wystąpił błąd po stronie klienta");
+    }
+  }
+});

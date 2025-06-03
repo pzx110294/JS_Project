@@ -1,6 +1,32 @@
 ﻿window.Book = { renderBook: async function (book, options = {}) {
         const {showStatus = false, showAdmin = false} = options;
         const bookElement = document.createElement('div');
+        if (!book.UserBook) {
+  const addBtn = bookElement.querySelector(".add-to-library");
+  if (addBtn) {
+    addBtn.addEventListener("click", async () => {
+      try {
+        const res = await authFetch(`/api/library`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ BookId: book.ID }),
+        });
+
+        if (res.ok) {
+          alert("Dodano książkę do Twojej biblioteki");
+          // Możesz np. przeładować stronę lub zmienić stan
+        } else {
+          alert("Błąd podczas dodawania książki");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Wystąpił błąd po stronie klienta");
+      }
+    });
+  }
+}
         bookElement.className = 'book';
 
         bookElement.innerHTML = `
