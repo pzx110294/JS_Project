@@ -2,7 +2,6 @@
     try {
         const user = await getCurrentUser();
         if (user.role !== 'admin') {
-            alert("Tylko administratorzy mogą dodawać autorów.");
             window.location.href = "/";
         }
     } catch (error) {

@@ -8,6 +8,9 @@ module.exports = (router) => {
     router.get('/editBook/:id', (req, res) => {
         res.sendFile(viewsPath + 'editBook.html');
     });
+    router.get('/deleteBook/:id', (req, res) => {
+        res.sendFile(viewsPath + 'deleteBook.html');
+    });
     router.get('/library', (req, res) => {
         res.sendFile(viewsPath + 'library.html');
     });

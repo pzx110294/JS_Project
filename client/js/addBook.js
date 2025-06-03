@@ -43,11 +43,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         const authorIds = Array.from(authorSelect.selectedOptions).map(opt => opt.value);
         const genreIds = Array.from(genreSelect.selectedOptions).map(opt => opt.value);
 
-        console.log(authorIds);
+        let date = formData.get('PublicationDate');
+        if (date.trim() === '') {
+            date = null;
+        }
         const payload = {
             Title: formData.get('Title'),
             ISBN: formData.get('ISBN'),
-            PublicationDate: formData.get('PublicationDate'),
+            PublicationDate: date, 
             AuthorId: authorIds,
             GenreId: genreIds
         };
