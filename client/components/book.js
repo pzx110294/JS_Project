@@ -4,17 +4,17 @@
     'finished': 'Przeczytane'
 };
 window.Book = { renderBook: async function (book, options = {}) {
-        console.log(book)
         const {isUserAuthenticated = false, isAdmin = false} = options;
         
         const bookElement = document.createElement('div');
         bookElement.className = 'book';
 
         bookElement.innerHTML = `
-        <img src="${book.CoverUrl || `https://covers.openlibrary.org/b/isbn/${book.ISBN}-M.jpg`}" class="cover">
+        <img src="${`https://covers.openlibrary.org/b/isbn/${book.ISBN}-M.jpg?default=false`}" class="cover"
+        onerror="this.onerror=null;this.src='/images/default-cover.jpg';">
         <h3>${book.Title}</h3>
         <p>${book.Authors?.map(a =>
-            `<a href="/authors/${a.id}">${a.Name}</a>`)
+            `<a href="/authors/${a.id}" style="color: black; text-decoration: none;">${a.Name}</a>`)
             .join(', ') || 'Nieznany autor'}</p>
         <p>${book.Genres?.map(a => `<a href="/genres/${a.id}">${a.Name}</a>`)
             .join(', ') || 'Brak gatunku'}</p>
