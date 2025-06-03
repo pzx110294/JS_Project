@@ -6,7 +6,7 @@ const { validateDate } = require('../../helpers/validateDate');
 
 async function updateBookById(id, book) {
     validateFields(book, ['Title', 'ISBN', 'AuthorId', 'GenreId'], 'Book');
-    validateDate(book.PublicationDate);
+    book.PublicationDate = validateDate(book.PublicationDate);
     
     let authorIds = normalizeIds(book.AuthorId, 'authorId');
     let genreIds = normalizeIds(book.GenreId, 'genreId');

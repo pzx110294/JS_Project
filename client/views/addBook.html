@@ -30,16 +30,22 @@
 
       <label>
         Autorzy:
-        <select name="AuthorIds" id="author-select" multiple required>
-          <!-- Options will be populated by JS -->
-        </select>
+        <div class="multi-select-row">
+          <select id="author-select">
+            <!-- options populated by JS -->
+          </select>
+          <div id="selected-authors" class="selected-items"></div>
+        </div>
       </label>
 
       <label>
         Gatunki:
-        <select name="GenreIds" id="genre-select" multiple required>
-          <!-- Options will be populated by JS -->
-        </select>
+        <div class="multi-select-row">
+          <select id="genre-select">
+            <!-- options populated by JS -->
+          </select>
+          <div id="selected-genres" class="selected-items"></div>
+        </div>
       </label>
       
       <button type="submit">📘 Dodaj książkę</button>

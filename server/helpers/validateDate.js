@@ -1,5 +1,6 @@
 ﻿function validateDate(PublicationDate) {
-    if (PublicationDate === undefined || PublicationDate === null || PublicationDate === '') {
+    console.log(`Date to validate: ${PublicationDate}`);
+    if (PublicationDate === undefined || PublicationDate === null) {
         return null;
     }
     const date = new Date(PublicationDate);
