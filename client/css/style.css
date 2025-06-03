@@ -100,7 +100,7 @@ main {
 }
 
 .book button {
-  background-color: #2ecc71;
+
   color: white;
   border: none;
   padding: 10px 16px;
@@ -229,7 +229,7 @@ main {
 
 .status-controls {
   display: grid;
-  grid-template-columns: 1fr auto auto;
+  grid-template-columns: 1fr ;
   align-items: center;
   gap: 10px;
   margin-top: 10px;
@@ -389,4 +389,13 @@ main {
 
 .menu-dropdown button.delete-btn::before {
   content: "🗑️ ";
+}
+.save-status{
+  background-color: #388e3c;
+}
+.delete-library-book{
+  background-color: red;
+}
+.add-to-library{
+  background-color: #0078d7;
 }
