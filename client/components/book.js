@@ -5,14 +5,17 @@
 };
 window.Book = { renderBook: async function (book, options = {}) {
         const {isUserAuthenticated = false, isAdmin = false} = options;
+        
         const bookElement = document.createElement('div');
         bookElement.className = 'book';
 
         bookElement.innerHTML = `
         <img src="${book.CoverUrl || `https://covers.openlibrary.org/b/isbn/${book.ISBN}-M.jpg`}" class="cover">
         <h3>${book.Title}</h3>
-        <p>${book.Authors?.map(a => a.Name).join(', ') || 'Unknown author'}</p>
-    `;
+        <p>${book.Authors?.map(a => a.Name).join(', ') || 'Nieznany autor'}</p>
+        <p>${book.Genres?.map(a => a.Name).join(', ') || 'Brak gatunku'}</p>
+        <p><b>Data wydania: </b>${book.PublicationDate || 'W przyszłości'}</p>
+        `;
 
         if (isUserAuthenticated) {
             let statusHtml;
