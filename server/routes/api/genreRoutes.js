@@ -28,7 +28,7 @@ router.get('/genres/:id', auth([], true), async (req, res, next) => {
         next(error);
     }
 });
-router.post('/genres', async (req, res, next) => {
+router.post('/genres', auth(['admin']), async (req, res, next) => {
     try {
         const newGenre = await createGenre(req.body);
         res.status(201).json(newGenre);
@@ -37,7 +37,7 @@ router.post('/genres', async (req, res, next) => {
         next(error);
     }
 });
-router.put('/genres/:id', async (req, res, next) => {
+router.put('/genres/:id', auth(['admin']), async (req, res, next) => {
     try {
         const updateGenre = await updateGenreById(req.params.id, req.body);
         res.json(updateGenre);
@@ -46,7 +46,7 @@ router.put('/genres/:id', async (req, res, next) => {
         next(error);
     }
 });
-router.delete('/genres/:id', async (req, res, next) => {
+router.delete('/genres/:id', auth(['admin']), async (req, res, next) => {
     try {
         const deletedGenre = await deleteGenreById(req.params.id);
         res.json(deletedGenre);
