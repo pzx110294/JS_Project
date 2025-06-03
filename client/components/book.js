@@ -3,7 +3,15 @@
     'reading': 'W trakcie',
     'finished': 'Przeczytane'
 };
-window.Book = { renderBook: async function (book, options = {}) {
+window.Book = {
+    sortBooks: function(books, order = 'newest') {
+        return [...books].sort((a, b) => {
+            const dateA = new Date(a.PublicationDate || 0);
+            const dateB = new Date(b.PublicationDate || 0);
+            return order === 'newest' ? dateB - dateA : dateA - dateB;
+        });
+    },
+    renderBook: async function (book, options = {}) {
         const {isUserAuthenticated = false, isAdmin = false} = options;
         
         const bookElement = document.createElement('div');
@@ -16,7 +24,7 @@ window.Book = { renderBook: async function (book, options = {}) {
         <p>${book.Authors?.map(a =>
             `<a href="/authors/${a.id}" style="color: black; text-decoration: none;">${a.Name}</a>`)
             .join(', ') || 'Nieznany autor'}</p>
-        <p>${book.Genres?.map(a => `<a href="/genres/${a.id}">${a.Name}</a>`)
+        <p>${book.Genres?.map(a => `<a href="/genres/${a.id}" style="color: black; text-decoration: none;">${a.Name}</a>`)
             .join(', ') || 'Brak gatunku'}</p>
         <p><b>Data wydania: </b>${book.PublicationDate || 'W przyszłości'}</p>
         `;

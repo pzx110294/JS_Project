@@ -1,4 +1,4 @@
-async function fetchBooks() {
+async function fetchBooks(sortOrder = 'newest') {
     const bookList = document.getElementById("book-list");
     if (!bookList) return;
 
@@ -14,8 +14,10 @@ async function fetchBooks() {
         });
         if (!response.ok) throw new Error(`HTTP error  ${response.status}`);
 
-        const books = await response.json();
+        let books = await response.json();
 
+        books = Book.sortBooks(books, sortOrder);
+        
         if (books.length === 0) {
             bookList.innerHTML = "<p>Brak książek w bazie.</p>";
             return;
