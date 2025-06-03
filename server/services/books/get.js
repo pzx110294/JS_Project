@@ -55,10 +55,19 @@ async function getBooks(filters = {}, user) {
         include,
         attributes: { exclude: ['createdAt', 'updatedAt']}
     });
-    for (const book of books) {
+    const normalizedBooks = books.map((book) => {
+        const json = book.toJSON();
+        
+        if (json.Library?.length === 1) {
+            json.UserBook = json.Library[0].UserBook;
+        } 
+        delete json.Library;
+        return json;
+    })
+    for (const book of normalizedBooks) {
         validateFields(book, ['Title', 'ISBN', 'Authors', 'Genres'], 'Book');
     }
-    return books;
+    return normalizedBooks;
 }
 async function getBookById(id, user) {
     const include = [Author, Genre];

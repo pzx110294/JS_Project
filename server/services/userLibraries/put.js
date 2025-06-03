@@ -1,6 +1,6 @@
 ﻿const db = require('../../models');
 
-async function updateLibraryStatus(userId, bookId, status) {
+async function updateLibraryStatus(userId, bookId, status = 'to read') {
     const validStatuses = ['to read', 'reading', 'finished'];
 
     if (!validStatuses.includes(status)) {

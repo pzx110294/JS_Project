@@ -58,6 +58,7 @@ function logout() {
 
 
 async function  getCurrentUser() {
+    if (!isAuthenticated()) return;
     const response = await authFetch('/api/me');
     return response.json();
 }
@@ -91,7 +92,6 @@ window.initializeAuth = async function() {
     if (!isAuthenticated()) return;
     try {
         const user = await getCurrentUser();
-        console.log(user);
         await updateNavbar(user);
     } catch (error) {
         console.error('Auth initialization error:', error);

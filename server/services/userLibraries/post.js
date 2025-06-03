@@ -2,7 +2,7 @@
 const {checkIfBookExists} = require("../../helpers/checkIfExists");
 const { UserBook } = db;
 
-async function addBookToLibrary(userId, bookId, status) {
+async function addBookToLibrary(userId, bookId, status = 'to read') {
   const validStatuses = ['to read', 'reading', 'finished'];
   if (status && !validStatuses.includes(status)) {
     const error = new Error(`Invalid status: ${status}`);
