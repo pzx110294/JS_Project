@@ -56,8 +56,10 @@ main {
 
 #book-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, 350px);
+  justify-content: center; /* lub start/space-between według preferencji */
+  gap: 24px;
+  padding: 16px;
 }
 
 #user-library {
@@ -109,10 +111,6 @@ main {
   transition: background-color 0.3s ease;
 }
 
-.book button:hover {
-  background-color: #27ae60;
-}
-
 .book-item {
   background-color: white;
   padding: 16px;
@@ -122,7 +120,7 @@ main {
 }
 
 .book-item img.cover {
-  width: 100%;
+  width: 100;
   height: auto;
   border-radius: 6px;
   margin-bottom: 12px;
@@ -196,7 +194,7 @@ main {
   font-size: 16px;
   cursor: pointer;
   margin-top: 20px;
-  width: 100%;
+  width: 100px;
 }
 
 .book-form button:hover,
@@ -398,4 +396,5 @@ main {
 }
 .add-to-library{
   background-color: #0078d7;
+  width: 100%; /* lub dowolna inna wartość */
 }
