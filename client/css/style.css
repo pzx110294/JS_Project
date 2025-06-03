@@ -109,10 +109,6 @@ main {
   transition: background-color 0.3s ease;
 }
 
-.book button:hover {
-  background-color: #27ae60;
-}
-
 .book-item {
   background-color: white;
   padding: 16px;
@@ -398,4 +394,5 @@ main {
 }
 .add-to-library{
   background-color: #0078d7;
+  width: 100%; /* lub dowolna inna wartość */
 }
