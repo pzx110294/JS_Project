@@ -41,19 +41,6 @@ npm test
  
  • Możliwość dodawania książek do swojej biblioteki:
  
- Przykładowa książka:
-
-    Tytuł - Fool's Errand
-  
-    ISBN - 9780002247269
-  
-    publicationDate - October 2001
-  
-    autor - Robin hobb
-  
-    Gatunek - Fantasy
- 
- 
  • możliwość edycji statusu,
  
  • możliwość usuwania ze swojej biblioteki książek,
@@ -66,7 +53,20 @@ npm test
  
  • Możliwość edycji i usuwania kiążek z bibioteki,
  
- • Możłiwość dodawania autorów, gatunków, książek,
+ • Możłiwość dodawania autorów, gatunków, książek:
+ 
+ Przykładowa książka:
+
+    Tytuł - Fool's Errand
+  
+    ISBN - 9780002247269
+  
+    publicationDate - October 2001
+  
+    autor - Robin hobb
+  
+    Gatunek - Fantasy
+ 
  
  • Wszystko co podstawowy user bez rejestracji
   
